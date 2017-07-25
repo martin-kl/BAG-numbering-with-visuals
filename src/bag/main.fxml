@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ButtonBar?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+  prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.111"
+  xmlns:fx="http://javafx.com/fxml/1" fx:controller="bag.MainController">
+  <children>
+    <VBox prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="20.0"
+      AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
+      <children>
+        <HBox alignment="CENTER" prefHeight="19.0" prefWidth="760.0">
+          <children>
+            <Label fx:id="lb_Title" alignment="CENTER" prefHeight="29.0" prefWidth="469.0"
+              text="BAG Hollabrunn - Startnummer Algorithmus" textAlignment="CENTER">
+              <font>
+                <Font size="24.0"/>
+              </font>
+            </Label>
+          </children>
+        </HBox>
+        <ButtonBar prefHeight="40.0" prefWidth="200.0">
+          <buttons>
+            <Button mnemonicParsing="false"
+              onAction="#startAlgorithmNormally" text="Starte Algorithmus normal"/>
+            <Button mnemonicParsing="false" onAction="#startAlgorithmLoop"
+              text="Starte Algorithmus 1000 Mal"/>
+          </buttons>
+          <VBox.margin>
+            <Insets bottom="5.0" top="5.0"/>
+          </VBox.margin>
+        </ButtonBar>
+        <ScrollPane prefHeight="500.0" prefWidth="760.0">
+          <content>
+            <VBox prefHeight="490.0" prefWidth="740.0"/>
+          </content>
+        </ScrollPane>
+      </children>
+    </VBox>
+  </children>
+</AnchorPane>
