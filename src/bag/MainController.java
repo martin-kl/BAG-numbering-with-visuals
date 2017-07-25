@@ -32,9 +32,11 @@ public class MainController {
 
     private static final int LOOP_TIMES = 1000;
 
-    public void startAlgorithmNormally(ActionEvent actionEvent) {
-        System.out.println("start normally");
+    public void initialize() {
+        vbResult.getChildren().clear();
+    }
 
+    public void startAlgorithmNormally(ActionEvent actionEvent) {
         StNrAlgorithm stNrAlgorithm = new StNrAlgorithm();
         stNrAlgorithm.starteAlgorithmus(true, false);
 
@@ -42,8 +44,6 @@ public class MainController {
     }
 
     public void startAlgorithmLoop(ActionEvent actionEvent) {
-        System.out.println("start in loop");
-
         StNrAlgorithm stNrAlgorithm = new StNrAlgorithm();
         int posCounter = 0;
         for (int i = 0; i < LOOP_TIMES - 1; i++) {
@@ -65,7 +65,9 @@ public class MainController {
         vbResult.getChildren().add(gridPaneStatistical);
 
         vbResult.getChildren().add(new Separator());
+        vbResult.getChildren().add(new Label(""));
         vbResult.getChildren().add(new Label("Ergebnis der letzten Simulation:"));
+        vbResult.getChildren().add(new Label(""));
 
         addResult(false, stNrAlgorithm.getResult());
     }
