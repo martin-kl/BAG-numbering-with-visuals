@@ -298,4 +298,8 @@ public class StNrAlgorithm {
             System.out.println(i + ". " + startnummern[i].getBez());
         }
     }
+
+    public Kapelle[] getResult() {
+        return startnummern;
+    }
 }

@@ -16,9 +16,10 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("main.fxml"));
-        primaryStage.setTitle("BAG Hollabrunn - Startnummeralgorithmus        (c) Maximilian Peer & Martin Klampfer");
-        primaryStage.setScene(new Scene(root, 800, 600));
+        primaryStage.setTitle(
+            "BAG Hollabrunn - Startnummeralgorithmus        (c) Maximilian Peer & Martin Klampfer");
+        Scene scene = new Scene(root, 800, 600);
+        primaryStage.setScene(scene);
         primaryStage.show();
     }
-
 }
