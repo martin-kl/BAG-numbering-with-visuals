@@ -1,12 +1,11 @@
 package bag;
 
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.Separator;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 
@@ -39,12 +38,7 @@ public class MainController {
         StNrAlgorithm stNrAlgorithm = new StNrAlgorithm();
         stNrAlgorithm.starteAlgorithmus(true, false);
 
-        Kapelle[] result = stNrAlgorithm.getResult();
-        vbResult.getChildren().clear();
-        for(Kapelle k : result) {
-            vbResult.getChildren().add(new Label(k.getBez()));
-        }
-        spResults.setContent(vbResult);
+        addResult(true, stNrAlgorithm.getResult());
     }
 
     public void startAlgorithmLoop(ActionEvent actionEvent) {
@@ -70,11 +64,19 @@ public class MainController {
         vbResult.getChildren().clear();
         vbResult.getChildren().add(gridPaneStatistical);
 
-        /*
-        System.out.println("\n\tGesamtanzahl der Zuweisungen: " + LOOP_TIMES);
-        System.out.println("\tDavon gelungenen Zuweisungen: " + posCounter);
-        System.out.println("\tDaraus folgt: " + (LOOP_TIMES - posCounter)
-            + " Zuweisungen sind nicht gelungen!");
-            */
+        vbResult.getChildren().add(new Separator());
+        vbResult.getChildren().add(new Label("Ergebnis der letzten Simulation:"));
+
+        addResult(false, stNrAlgorithm.getResult());
+    }
+
+    private void addResult(boolean deleteList, Kapelle[] result) {
+        if(deleteList) {
+            vbResult.getChildren().clear();
+        }
+        for (int i = 1; i < result.length; i++) {
+            vbResult.getChildren()
+                .add(new Label("Startnummer " + i + ":\t\t" + result[i].getBez()));
+        }
     }
 }
