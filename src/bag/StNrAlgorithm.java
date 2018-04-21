@@ -109,7 +109,7 @@ public class StNrAlgorithm {
         this.z = 0;
     }
 
-    public boolean starteAlgorithmus(boolean showStartingNumbers, boolean resetParameter) {
+    public boolean startAlgorithm(boolean showStartingNumbers, boolean resetParameter) {
         //call methods to assign starting numbers and if flags are set print the results
 
         if (resetParameter) {
@@ -122,8 +122,12 @@ public class StNrAlgorithm {
 
         //start assigning starting numbers
         if (!teileStartnummernZu()) {
+            /*
             System.out.println("Mit der begonnenen Zuweisung konnte kein passendes Ergebnis für"
                 + " alle Kapellen gefunden werden, breche diesen Versuch ab...");
+                */
+            System.err.println("Mit der begonnenen Zuweisung konnte kein passendes Ergebnis für"
+                    + " alle Kapellen gefunden werden, breche diesen Versuch ab...");
             return false;
         }
 
@@ -143,7 +147,7 @@ public class StNrAlgorithm {
             }
         }
         if (invalid) {
-            System.out.println("\nInvalid starting range(s) - exiting program...");
+            System.err.println("\nInvalid starting range(s) - exiting program...");
             System.exit(1);
         }
     }
@@ -159,7 +163,7 @@ public class StNrAlgorithm {
             }
         }
         if (invalid) {
-            System.out.println("\nInvalid dependence(s) detected - exiting program...");
+            System.err.println("\nInvalid dependence(s) detected - exiting program...");
             System.exit(1); //exit the program if there is an invalid dependence
         }
     }
@@ -236,7 +240,8 @@ public class StNrAlgorithm {
                 //System.out.println("startnummer "+z+" probieren für "+k);
                 for (int j = z - 2; j <= z + 2; j++) {
                     if (j < 1) {
-                        j = 1;
+                        //j = 1; //better continue here, cause algorithm is trying j=1 anyways in the case
+                        continue;
                     }
                     if (j == z) {
                         j++;
@@ -261,8 +266,12 @@ public class StNrAlgorithm {
                 vergebeneStNr.add(z);
             } else {
                 if (attempt_counter > 200) {
+                    /*
                     System.out.println("\nEs wurden bereits 200 Versuche für eine Startnummer für"
                         + " " + k.getBez() + " getätigt, Abbruch folgt.");
+                        */
+                    System.err.println("\nermittleStartnummerI\tEs wurden bereits 200 Versuche für eine Startnummer für"
+                            + " " + k.getBez() + " getätigt, Abbruch folgt.");
                     return false;
                 }
             }
@@ -272,12 +281,21 @@ public class StNrAlgorithm {
 
     private void ermittleStartnummerII(Kapelle k) {
         zugeteilt = false;
-        while (!zugeteilt) {
+        //the counter is added in case that two orchestras have just one possible value
+        int counter = 0;
+        while (!zugeteilt && counter < 1000) {
             if (erzeugeStartnummer(k)) {
                 zugeteilt = true;
                 startnummern[z] = k;
                 vergebeneStNr.add(z);
             }
+            counter++;
+        }
+        if(!zugeteilt) {
+            //algorithm was not able to find possible starting numbers
+            //most likely 2 orchestras have just one possible starting number (the same)
+            System.err.println("\nermittleStartnummer2\tEs wurden bereits 1000 Versuche für eine Startnummer für"
+                    + " " + k.getBez() + " getätigt, Abbruch folgt.");
         }
     }
 

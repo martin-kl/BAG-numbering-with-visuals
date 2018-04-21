@@ -38,7 +38,7 @@ public class MainController {
 
     public void startAlgorithmNormally(ActionEvent actionEvent) {
         StNrAlgorithm stNrAlgorithm = new StNrAlgorithm();
-        stNrAlgorithm.starteAlgorithmus(true, false);
+        stNrAlgorithm.startAlgorithm(true, false);
 
         addResult(true, stNrAlgorithm.getResult());
     }
@@ -48,12 +48,12 @@ public class MainController {
         int posCounter = 0;
         for (int i = 0; i < LOOP_TIMES - 1; i++) {
             System.out.println("\t\tDurchlauf Nummer = " + (i + 1));
-            if (stNrAlgorithm.starteAlgorithmus(false, true)) {
+            if (stNrAlgorithm.startAlgorithm(false, true)) {
                 posCounter++;
             }
         }
         System.out.println("\n\t\tDurchlauf Nummer = " + LOOP_TIMES);
-        if (stNrAlgorithm.starteAlgorithmus(true, true)) {
+        if (stNrAlgorithm.startAlgorithm(true, true)) {
             posCounter++;
         }
 
