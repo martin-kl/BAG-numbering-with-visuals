@@ -16,7 +16,7 @@ public class StNrAlgorithm {
     private ArrayList<Kapelle> kritischeKapellen2; //Kapellen mit mittlerer Startnummern-Einschränkungen
     private ArrayList<Kapelle> kritischeKapellen3; //Kapellen ohne Startnummern-Einschränkungen
 
-    private Kapelle[] startnummern; //Startnummern
+    private Kapelle[] startingNumbers; //Startnummern
     private ArrayList<Integer> vergebeneStNr; //bereits vergebene Startnummern
 
     private static Random generator; //Zufallszahlengenerator
@@ -27,8 +27,6 @@ public class StNrAlgorithm {
     private final int ANZAHLKAPELLEN = 21; //Anzahl der teilnehmenden Kapellen
 
     public StNrAlgorithm() {
-        //Festlegung der Anzahl der teilnehmenden Kapellen
-        //this.ANZAHLKAPELLEN = 21;
         generator = new Random();
 
         //Erstellen aller teilnehmenden Kapellen
@@ -100,7 +98,7 @@ public class StNrAlgorithm {
         kapellen.size() + 1 cause kapellen[0] stays empty, so that kapellen[1] contains the kapelle
         with starting number 1 and so on
          */
-        this.startnummern = new Kapelle[kapellen.size() + 1];
+        this.startingNumbers = new Kapelle[kapellen.size() + 1];
 
         //Erstellen der Liste mit bereits vergebenen Startnummern
         this.vergebeneStNr = new ArrayList<Integer>();
@@ -114,7 +112,7 @@ public class StNrAlgorithm {
 
         if (resetParameter) {
             this.vergebeneStNr = new ArrayList<Integer>();
-            this.startnummern = new Kapelle[kapellen.size() + 1];
+            this.startingNumbers = new Kapelle[kapellen.size() + 1];
 
             this.zugeteilt = false;
             this.z = 0;
@@ -132,7 +130,7 @@ public class StNrAlgorithm {
         }
 
         if (showStartingNumbers) {
-            this.zeigeStartnummernAn();
+            this.printStartingNumbers();
         }
         return true;
     }
@@ -141,8 +139,12 @@ public class StNrAlgorithm {
         boolean invalid = false;
         for (Kapelle k : liste) {
             if (k.getStNrDif() < 0) {
+                /*
                 System.out.println(k.getBez() + " hat ungültigen Startnummernbereich (frühest"
                     + " möglich = " + k.getFrStNr() + " spätest möglich = " + k.getSpStNr() + ").");
+                    */
+                System.err.println(k.getBez() + " hat ungültigen Startnummernbereich (frühest"
+                        + " möglich = " + k.getFrStNr() + " spätest möglich = " + k.getSpStNr() + ").");
                 invalid = true;
             }
         }
@@ -157,7 +159,8 @@ public class StNrAlgorithm {
         for (Kapelle k : map.keySet()) {
             for (Kapelle j : map.get(k)) {
                 if (k.equals(j)) {
-                    System.out.println(k.getBez() + " hat Abhängigkeit zu sich selbst.");
+                    //System.out.println(k.getBez() + " hat Abhängigkeit zu sich selbst.");
+                    System.err.println(k.getBez() + " hat Abhängigkeit zu sich selbst.");
                     invalid = true;
                 }
             }
@@ -234,11 +237,10 @@ public class StNrAlgorithm {
         while (!zugeteilt) {
             attempt_counter++;
             abstandNichtAusreichend = false;
-            if (!erzeugeStartnummer(k)) {
+            if (!generateStartingNumber(k)) {
                 continue;
             } else {
-                //System.out.println("startnummer "+z+" probieren für "+k);
-                for (int j = z - 2; j <= z + 2; j++) {
+                for (int j = z - 3; j <= z + 3; j++) {
                     if (j < 1) {
                         //j = 1; //better continue here, cause algorithm is trying j=1 anyways in the case
                         continue;
@@ -246,11 +248,11 @@ public class StNrAlgorithm {
                     if (j == z) {
                         j++;
                     }
-                    if (j >= startnummern.length) {
+                    if (j >= startingNumbers.length) {
                         break;
                     }
                     for (Kapelle l : kapellenMitAbhaengigkeit.get(k)) {
-                        if (l.equals(startnummern[j])) {
+                        if (l.equals(startingNumbers[j])) {
                             abstandNichtAusreichend = true;
                             break;
                         }
@@ -262,7 +264,7 @@ public class StNrAlgorithm {
             }
             if (!abstandNichtAusreichend) {
                 zugeteilt = true;
-                startnummern[z] = k;
+                startingNumbers[z] = k;
                 vergebeneStNr.add(z);
             } else {
                 if (attempt_counter > 200) {
@@ -281,25 +283,29 @@ public class StNrAlgorithm {
 
     private void ermittleStartnummerII(Kapelle k) {
         zugeteilt = false;
-        //the counter is added in case that two orchestras have just one possible value
-        int counter = 0;
-        while (!zugeteilt && counter < 1000) {
-            if (erzeugeStartnummer(k)) {
+        //the attempt_counter is added in case that two orchestras have just one possible value
+        int attempt_counter = 0;
+        while (!zugeteilt && attempt_counter < 400) {
+            if (generateStartingNumber(k)) {
                 zugeteilt = true;
-                startnummern[z] = k;
+                startingNumbers[z] = k;
                 vergebeneStNr.add(z);
             }
-            counter++;
+            attempt_counter++;
         }
         if(!zugeteilt) {
             //algorithm was not able to find possible starting numbers
             //most likely 2 orchestras have just one possible starting number (the same)
-            System.err.println("\nermittleStartnummer2\tEs wurden bereits 1000 Versuche für eine Startnummer für"
+            System.err.println("\nermittleStartnummer2\tEs wurden bereits 400 Versuche für eine Startnummer für"
                     + " " + k.getBez() + " getätigt, Abbruch folgt.");
         }
     }
 
-    private boolean erzeugeStartnummer(Kapelle k) {
+/**
+    generates a possible starting number between earliest possible and latest possible
+    then checks, if the number is already given to another orchestra and returns the negated value of this comparison
+ */
+    private boolean generateStartingNumber(Kapelle k) {
         z = generator.nextInt(k.getStNrDif() + 1) + k.getFrStNr();
         for (int i : vergebeneStNr) {
             if (z == i) {
@@ -309,15 +315,15 @@ public class StNrAlgorithm {
         return true;
     }
 
-    private void zeigeStartnummernAn() {
+    private void printStartingNumbers() {
         System.out.println("Startreihenfolge für die Marschmusikbewertung 2018");
         System.out.println();
-        for (int i = 1; i < startnummern.length; i++) {
-            System.out.println(i + ". " + startnummern[i].getBez());
+        for (int i = 1; i < startingNumbers.length; i++) {
+            System.out.println(i + ". " + startingNumbers[i].getBez());
         }
     }
 
     public Kapelle[] getResult() {
-        return startnummern;
+        return startingNumbers;
     }
 }
