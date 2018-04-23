@@ -9,6 +9,7 @@ import java.util.Random;
 
 public class StNrAlgorithm {
 
+    private static final int MAX_TRIES = 1000;
     private ArrayList<Kapelle> kapellen; //Teilnehmende Kapellen
     private Map<Kapelle, ArrayList<Kapelle>> kapellenMitAbhaengigkeit; //Kapellen mit Doppelmusikern
 
@@ -35,15 +36,15 @@ public class StNrAlgorithm {
         Kapelle hadres = new Kapelle("Dorfmusik Hadres im Pulkautal", 345, 1, ANZAHLKAPELLEN);
         Kapelle hardegg = new Kapelle("Waldviertler Grenzlandkapelle Hardegg", 71, 1, 10);
         Kapelle heldenberg = new Kapelle("Jugend-Radetzkykapelle Heldenberg", 999, 1,
-            ANZAHLKAPELLEN); //Nummer fehlt
+                ANZAHLKAPELLEN); //Nummer fehlt
         Kapelle hollabrunn = new Kapelle("Stadtmusik Hollabrunn", 998, 1,
-            ANZAHLKAPELLEN); //Nummer fehlt
+                ANZAHLKAPELLEN); //Nummer fehlt
         Kapelle mailberg = new Kapelle("Weinviertler Hauerkapelle Mailberg", 340, 1, 10);
         Kapelle maissau = new Kapelle("Stadtmusik Maissau", 238, 1, 2);
         Kapelle obermarkersdorf = new Kapelle("Musikkapelle Obermarkersdorf", 248, 1, 15);
         Kapelle pulkau = new Kapelle("Trachtenkapelle Pulkau", 187, 1, ANZAHLKAPELLEN);
         Kapelle ravelsbach = new Kapelle("Jugend-Deutschmeisterkapelle Ravelsbach", 338, 1,
-            ANZAHLKAPELLEN);
+                ANZAHLKAPELLEN);
         Kapelle retz = new Kapelle("Stadtkapelle Retz", 278, 1, 1);
         Kapelle retzbach = new Kapelle("Trachtenkapelle Retzbach", 191, 1, ANZAHLKAPELLEN);
         Kapelle roeschitz = new Kapelle("Musikverein Röschitz", 122, 1, 5);
@@ -51,7 +52,7 @@ public class StNrAlgorithm {
         Kapelle schmidatal = new Kapelle("Musikverein Schmidatal", 154, 1, 7);
         Kapelle theras = new Kapelle("Trachtenkapelle Theras", 245, 1, ANZAHLKAPELLEN);
         Kapelle unterduernbach = new Kapelle("Musikverein Unterdürnbach", 997, 1,
-            ANZAHLKAPELLEN); //Nummer fehlt
+                ANZAHLKAPELLEN); //Nummer fehlt
         Kapelle zellerndorf = new Kapelle("Musikkapelle Zellerndorf", 170, 1, ANZAHLKAPELLEN);
         Kapelle ziersdorf = new Kapelle("Trachtenkapelle Ziersdorf und Umgebung", 369, 1, 10);
         Kapelle wullersdorf = new Kapelle("Jugend-Musikverein Wullersdorf", 435, 1, ANZAHLKAPELLEN);
@@ -59,9 +60,9 @@ public class StNrAlgorithm {
         //Alle Kapellen-Objekte zu Liste aller Kapellen hinzufuegen
         this.kapellen = new ArrayList<Kapelle>();
         this.kapellen.addAll(Arrays.asList(goellersdorf, guntersdorf, hadres, hardegg, heldenberg,
-            hollabrunn, mailberg, maissau, obermarkersdorf, pulkau, ravelsbach, retz,
-            retzbach, roeschitz, roseldorf, schmidatal, theras, unterduernbach, zellerndorf,
-            ziersdorf, wullersdorf));
+                hollabrunn, mailberg, maissau, obermarkersdorf, pulkau, ravelsbach, retz,
+                retzbach, roeschitz, roseldorf, schmidatal, theras, unterduernbach, zellerndorf,
+                ziersdorf, wullersdorf));
 
         //Check if the starting-number range of every band is valid (latest number must be greater
         // than earliest number
@@ -70,7 +71,7 @@ public class StNrAlgorithm {
         //Hinzufügen aller Kapellen mit Doppelmusikern
         this.kapellenMitAbhaengigkeit = new HashMap<Kapelle, ArrayList<Kapelle>>();
         kapellenMitAbhaengigkeit
-            .put(hardegg, new ArrayList<>(Arrays.asList(ziersdorf, obermarkersdorf)));
+                .put(hardegg, new ArrayList<>(Arrays.asList(ziersdorf, obermarkersdorf)));
         kapellenMitAbhaengigkeit.put(ziersdorf, new ArrayList<>(Arrays.asList(hardegg)));
         kapellenMitAbhaengigkeit.put(obermarkersdorf, new ArrayList<>(Arrays.asList(hardegg)));
         kapellenMitAbhaengigkeit.put(schmidatal, new ArrayList<>(Arrays.asList(mailberg)));
@@ -107,9 +108,7 @@ public class StNrAlgorithm {
         this.z = 0;
     }
 
-    public boolean startAlgorithm(boolean showStartingNumbers, boolean resetParameter) {
-        //call methods to assign starting numbers and if flags are set print the results
-
+    public boolean startAlgorithmOnce(boolean showStartingNumbers, boolean resetParameter) {
         if (resetParameter) {
             this.vergebeneStNr = new ArrayList<Integer>();
             this.startingNumbers = new Kapelle[kapellen.size() + 1];
@@ -134,6 +133,42 @@ public class StNrAlgorithm {
         }
         return true;
     }
+
+    /**
+     * This method calls the assignment method till it gets a positive assignment, max times=MAX_TRIES
+     *
+     * @param printStartingNumbers prints the starting numbers on System.out if the flag is set
+     */
+    public void startAlgorithmLoop(boolean printStartingNumbers) {
+        boolean assignmentFound = false;
+        int attempt_counter = 0;
+        while (!assignmentFound && attempt_counter < MAX_TRIES) {
+            this.vergebeneStNr = new ArrayList<>();
+            this.startingNumbers = new Kapelle[kapellen.size() + 1];
+            this.zugeteilt = false;
+            this.z = 0;
+
+            if (teileStartnummernZu()) {
+                //found possible asssignment, exit this method
+                assignmentFound = true;
+            } else {
+                attempt_counter++;
+            }
+        }
+
+        if (assignmentFound) {
+            //found solution, print it if necessary
+            System.out.println("Ergebnis in Versuch Nummer " + (attempt_counter + 1) + " gefunden.");
+            if (printStartingNumbers) {
+                this.printStartingNumbers();
+            }
+        } else {
+            //no solution found, print error message
+            System.err.println(MAX_TRIES + " Versuche um Startnummer zu belegen wurden durchgeführt aber keine" +
+                    "Belegung hat funktioniert ==> Programm beendet sich.");
+        }
+    }
+
 
     private void pruefeStNr(ArrayList<Kapelle> liste) {
         boolean invalid = false;
@@ -272,7 +307,7 @@ public class StNrAlgorithm {
                     System.out.println("\nEs wurden bereits 200 Versuche für eine Startnummer für"
                         + " " + k.getBez() + " getätigt, Abbruch folgt.");
                         */
-                    System.err.println("\nermittleStartnummerI\tEs wurden bereits 200 Versuche für eine Startnummer für"
+                    System.err.println("ermittleStartnummerI\tEs wurden bereits 200 Versuche für eine Startnummer für"
                             + " " + k.getBez() + " getätigt, Abbruch folgt.");
                     return false;
                 }
@@ -293,18 +328,18 @@ public class StNrAlgorithm {
             }
             attempt_counter++;
         }
-        if(!zugeteilt) {
+        if (!zugeteilt) {
             //algorithm was not able to find possible starting numbers
             //most likely 2 orchestras have just one possible starting number (the same)
-            System.err.println("\nermittleStartnummer2\tEs wurden bereits 400 Versuche für eine Startnummer für"
+            System.err.println("ermittleStartnummer2\tEs wurden bereits 400 Versuche für eine Startnummer für"
                     + " " + k.getBez() + " getätigt, Abbruch folgt.");
         }
     }
 
-/**
-    generates a possible starting number between earliest possible and latest possible
-    then checks, if the number is already given to another orchestra and returns the negated value of this comparison
- */
+    /**
+     * generates a possible starting number between earliest possible and latest possible
+     * then checks, if the number is already given to another orchestra and returns the negated value of this comparison
+     */
     private boolean generateStartingNumber(Kapelle k) {
         z = generator.nextInt(k.getStNrDif() + 1) + k.getFrStNr();
         for (int i : vergebeneStNr) {
