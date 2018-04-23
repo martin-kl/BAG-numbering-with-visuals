@@ -9,7 +9,7 @@ import java.util.Random;
 
 public class StNrAlgorithm {
 
-    private static final int MAX_TRIES = 1000;
+    private static final int MAX_TRIES = 2;
     private ArrayList<Kapelle> kapellen; //Teilnehmende Kapellen
     private Map<Kapelle, ArrayList<Kapelle>> kapellenMitAbhaengigkeit; //Kapellen mit Doppelmusikern
 
@@ -139,7 +139,7 @@ public class StNrAlgorithm {
      *
      * @param printStartingNumbers prints the starting numbers on System.out if the flag is set
      */
-    public void startAlgorithmLoop(boolean printStartingNumbers) {
+    public boolean startAlgorithmLoop(boolean printStartingNumbers) {
         boolean assignmentFound = false;
         int attempt_counter = 0;
         while (!assignmentFound && attempt_counter < MAX_TRIES) {
@@ -162,11 +162,13 @@ public class StNrAlgorithm {
             if (printStartingNumbers) {
                 this.printStartingNumbers();
             }
+            return true;
         } else {
             //no solution found, print error message
-            System.err.println(MAX_TRIES + " Versuche um Startnummer zu belegen wurden durchgeführt aber keine" +
-                    "Belegung hat funktioniert ==> Programm beendet sich.");
+            System.err.println("\n\n\t\t" + MAX_TRIES + " Versuche um Startnummer zu belegen wurden durchgeführt" +
+                    "aber keine Belegung hat funktioniert ==> Programm beendet sich.\n\n");
         }
+        return false;
     }
 
 
