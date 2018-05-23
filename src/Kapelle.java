@@ -1,5 +1,3 @@
-package bag;
-
 public class Kapelle {
 
     private String bez;

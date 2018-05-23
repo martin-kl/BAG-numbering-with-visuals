@@ -1,5 +1,3 @@
-package bag;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -88,7 +86,6 @@ public class StNrAlgorithm {
         kapellenMitAbhaengigkeit.put(zellerndorf, new ArrayList<>(Arrays.asList(obermarkersdorf)));
         kapellenMitAbhaengigkeit.put(pulkau, new ArrayList<>(Arrays.asList(obermarkersdorf)));
         kapellenMitAbhaengigkeit.put(hardegg, new ArrayList<>(Arrays.asList(obermarkersdorf)));
-
 
         kapellenMitAbhaengigkeit.put(schmidatal, new ArrayList<>(Arrays.asList(mailberg, wullersdorf)));
         kapellenMitAbhaengigkeit.put(mailberg, new ArrayList<>(Arrays.asList(schmidatal)));

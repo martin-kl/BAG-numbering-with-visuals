@@ -1,16 +1,17 @@
-package bag;
-
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Separator;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 
 public class MainController {
 
+    @FXML
+    public AnchorPane anchorPane;
     @FXML
     private Button btnAlgorithmNormal;
     @FXML
@@ -68,7 +69,9 @@ public class MainController {
 
         vbResult.getChildren().add(new Separator());
         vbResult.getChildren().add(new Label(""));
-        vbResult.getChildren().add(new Label("Ergebnis der letzten Simulation:"));
+        Label tempLabel = new Label("Ergebnis der letzten Simulation:");
+        tempLabel.setStyle("-fx-font: 13pt System;");
+        vbResult.getChildren().add(tempLabel);
         vbResult.getChildren().add(new Label(""));
 
         addResultToGraphicOutput(false, stNrAlgorithm.getResult(), lastResult);
@@ -80,12 +83,16 @@ public class MainController {
         }
         if(resultStatus) {
             for (int i = 1; i < result.length; i++) {
+                Label tempLabel = new Label(i + ":\t\t" + result[i].getBez());
+                tempLabel.setStyle("-fx-font: 13pt System;");
                 vbResult.getChildren()
-                        .add(new Label("Startnummer " + i + ":\t\t" + result[i].getBez()));
+                        .add(tempLabel);
             }
         }else {
+            Label tempLabel = new Label("Zuweisung nicht gelungen");
+            tempLabel.setStyle("-fx-font: 13pt System;");
             vbResult.getChildren()
-                    .add(new Label("Zuweisung nicht gelungen"));
+                    .add(tempLabel);
         }
     }
 }
