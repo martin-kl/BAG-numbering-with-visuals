@@ -30,6 +30,9 @@ public class StNrAlgorithm {
     public StNrAlgorithm() {
         generator = new Random();
 
+
+
+
         //Erstellen aller teilnehmenden Kapellen
         Kapelle goellersdorf = new Kapelle("Blasmusikkapelle Göllersdorf", 311, 1, 5); //TODO Festzelt(2)
         Kapelle guntersdorf = new Kapelle("Trachtenkapelle Guntersdorf", 101, 1, ANZAHLKAPELLEN);
@@ -47,15 +50,18 @@ public class StNrAlgorithm {
         Kapelle retzbach = new Kapelle("Trachtenkapelle Retzbach", 191, 1, ANZAHLKAPELLEN);
         Kapelle roeschitz = new Kapelle("Musikverein Röschitz", 122, 1, ANZAHLKAPELLEN);
         //Kapelle roseldorf = new Kapelle("Musikkapelle Roseldorf", 378, 1, ANZAHLKAPELLEN);
-        Kapelle schmidatal = new Kapelle("Musikverein Schmidatal", 154, 1, ANZAHLKAPELLEN);
+        Kapelle schmidatal = new Kapelle("Musikverein Schmidatal & Musikkapelle Roseldorf", 154, 1, ANZAHLKAPELLEN); //2018 gemeinsam angetreten
         Kapelle theras = new Kapelle("Trachtenkapelle Theras", 245, 1, ANZAHLKAPELLEN);
         Kapelle unterduernbach = new Kapelle("Musikverein Unterdürnbach", 997, 1,
                 ANZAHLKAPELLEN); //Nummer fehlt
         Kapelle wullersdorf = new Kapelle("Jugend-Musikverein Wullersdorf", 435, 1, ANZAHLKAPELLEN);
-        Kapelle zellerndorf = new Kapelle("Musikkapelle Zellerndorf", 170, 1, 2); //Festzelt(1)
+        Kapelle zellerndorf = new Kapelle("Musikkapelle Zellerndorf", 170, 1, 2); //TODO Festzelt(1)
         Kapelle ziersdorf = new Kapelle("Trachtenkapelle Ziersdorf und Umgebung", 369, 1, 8);
-        Kapelle kirchberg = new Kapelle("Kirchberg", 999, 1, ANZAHLKAPELLEN);
-        Kapelle angerberg_mariastein = new Kapelle("Angerberg-Mariastein", 999, 10, ANZAHLKAPELLEN);
+        Kapelle kirchberg = new Kapelle("Musikverein Kirchberg am Wagram", 999, 1, ANZAHLKAPELLEN); //TODO Kirchberg am Wagram stimmt eh oder?
+        Kapelle angerberg_mariastein = new Kapelle("Bundesmusikkapelle Angerberg/Mariastein", 999, 10, ANZAHLKAPELLEN);
+
+
+
 
         //Alle Kapellen-Objekte zu Liste aller Kapellen hinzufuegen
         this.kapellen = new ArrayList<Kapelle>();
