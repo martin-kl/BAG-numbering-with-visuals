@@ -87,9 +87,8 @@ public class StNrAlgorithm {
         kapellenMitAbhaengigkeit.put(obermarkersdorf, new ArrayList<>(Arrays.asList(hardegg, zellerndorf, pulkau)));
         kapellenMitAbhaengigkeit.put(zellerndorf, new ArrayList<>(Arrays.asList(obermarkersdorf)));
         kapellenMitAbhaengigkeit.put(pulkau, new ArrayList<>(Arrays.asList(obermarkersdorf)));
-        kapellenMitAbhaengigkeit.put(hardegg, new ArrayList<>(Arrays.asList(obermarkersdorf, ziersdorf)));
+        kapellenMitAbhaengigkeit.put(hardegg, new ArrayList<>(Arrays.asList(obermarkersdorf)));
 
-        kapellenMitAbhaengigkeit.put(ziersdorf, new ArrayList<>(Arrays.asList(hardegg)));
 
         kapellenMitAbhaengigkeit.put(schmidatal, new ArrayList<>(Arrays.asList(mailberg, wullersdorf)));
         kapellenMitAbhaengigkeit.put(mailberg, new ArrayList<>(Arrays.asList(schmidatal)));
