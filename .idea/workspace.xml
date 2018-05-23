@@ -2,15 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/bag_numbering/bag/main.fxml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/bag/Kapelle.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Kapelle.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/bag/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/bag/MainController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MainController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/bag/StNrAlgorithm.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/StNrAlgorithm.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/bag/main.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/MainController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MainController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/StNrAlgorithm.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/StNrAlgorithm.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.fxml" afterDir="false" />
     </list>
     <ignored path="JavaFxApplication.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -71,11 +66,8 @@
       <file leaf-file-name="Main.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="204">
-              <caret line="14" selection-start-line="14" selection-end-line="14" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
+            <state>
+              <caret column="14" selection-start-column="14" selection-end-column="14" />
             </state>
           </provider>
         </entry>
@@ -83,50 +75,26 @@
       <file leaf-file-name="MainController.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/MainController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="119">
-              <caret line="25" lean-forward="true" selection-start-line="25" selection-end-line="25" />
+            <state relative-caret-position="357">
+              <caret line="57" column="9" selection-start-line="57" selection-start-column="9" selection-end-line="57" selection-end-column="9" />
               <folding>
                 <element signature="imports" expanded="true" />
+                <element signature="e#824#825#0" expanded="true" />
+                <element signature="e#870#871#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name=".gitignore" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/.gitignore">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="96">
-              <caret line="42" column="8" selection-start-line="42" selection-start-column="8" selection-end-line="42" selection-end-column="8" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="main.css" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main.css">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="34">
-              <caret line="2" column="26" selection-start-line="2" selection-start-column="26" selection-end-line="2" selection-end-column="26" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="main.fxml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main.fxml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="221">
-              <caret line="13" selection-start-line="13" selection-end-line="13" />
-            </state>
-          </provider>
-          <provider editor-type-id="JavaFX-Scene-Builder" />
-        </entry>
-      </file>
-      <file leaf-file-name="StNrAlgorithm.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="StNrAlgorithm.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/StNrAlgorithm.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="119">
-              <caret line="7" column="13" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
+            <state relative-caret-position="-293">
+              <caret line="40" column="86" lean-forward="true" selection-start-line="40" selection-start-column="86" selection-end-line="40" selection-end-column="86" />
               <folding>
                 <element signature="imports" expanded="true" />
+                <element signature="e#16360#16361#0" expanded="true" />
+                <element signature="e#16398#16399#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -177,8 +145,9 @@
         <option value="$PROJECT_DIR$/src/bag/MainController.java" />
         <option value="$PROJECT_DIR$/src/Main.java" />
         <option value="$PROJECT_DIR$/src/main.fxml" />
-        <option value="$PROJECT_DIR$/src/MainController.java" />
         <option value="$PROJECT_DIR$/.gitignore" />
+        <option value="$PROJECT_DIR$/src/MainController.java" />
+        <option value="$PROJECT_DIR$/src/StNrAlgorithm.java" />
       </list>
     </option>
   </component>
@@ -423,7 +392,7 @@
       <workItem from="1526575459035" duration="320000" />
       <workItem from="1526651602528" duration="49000" />
       <workItem from="1527093158438" duration="167000" />
-      <workItem from="1527111635854" duration="2865000" />
+      <workItem from="1527111635854" duration="4491000" />
     </task>
     <task id="LOCAL-00001" summary="fixed sout and visual output">
       <created>1500991704358</created>
@@ -436,7 +405,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="14710000" />
+    <option name="totallyTimeSpent" value="16336000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -452,19 +421,19 @@
       <window_info anchor="right" id="Maven Projects" order="3" />
       <window_info anchor="bottom" id="Database Changes" order="8" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="7" />
-      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.3496732" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.3496732" />
       <window_info anchor="bottom" id="Floobits" order="7" />
       <window_info anchor="bottom" id="Terminal" order="7" />
       <window_info id="Capture Tool" order="2" />
       <window_info id="Designer" order="2" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.6703755" visible="true" weight="0.2249467" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.6703755" visible="true" weight="0.2249467" />
       <window_info anchor="right" id="Database" order="3" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info id="UI Designer" order="2" />
       <window_info anchor="right" id="Theme Preview" order="4" />
       <window_info id="Favorites" order="2" side_tool="true" weight="0.32995737" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.39978212" />
       <window_info anchor="right" id="JetGradle" order="3" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
@@ -492,6 +461,11 @@
     <MESSAGE value="fixed sout and visual output" />
     <option name="LAST_COMMIT_MESSAGE" value="fixed sout and visual output" />
   </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <option name="time" value="8" />
+    </breakpoint-manager>
+  </component>
   <component name="antWorkspaceConfiguration">
     <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />
     <option name="FILTER_TARGETS" value="false" />
@@ -501,9 +475,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="306">
           <caret line="24" selection-start-line="24" selection-end-line="24" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -513,6 +484,8 @@
           <caret line="58" selection-start-line="58" selection-end-line="58" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#824#825#0" expanded="true" />
+            <element signature="e#870#871#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -538,6 +511,8 @@
           <caret line="32" selection-start-line="32" selection-end-line="32" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#16360#16361#0" expanded="true" />
+            <element signature="e#16398#16399#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -546,9 +521,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="306">
           <caret line="24" selection-start-line="24" selection-end-line="24" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -558,6 +530,8 @@
           <caret line="58" selection-start-line="58" selection-end-line="58" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#824#825#0" expanded="true" />
+            <element signature="e#870#871#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -583,6 +557,8 @@
           <caret line="32" selection-start-line="32" selection-end-line="32" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#16360#16361#0" expanded="true" />
+            <element signature="e#16398#16399#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -591,9 +567,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="306">
           <caret line="24" selection-start-line="24" selection-end-line="24" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -603,6 +576,8 @@
           <caret line="58" selection-start-line="58" selection-end-line="58" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#824#825#0" expanded="true" />
+            <element signature="e#870#871#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -628,6 +603,8 @@
           <caret line="32" selection-start-line="32" selection-end-line="32" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#16360#16361#0" expanded="true" />
+            <element signature="e#16398#16399#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -636,9 +613,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="306">
           <caret line="24" selection-start-line="24" selection-end-line="24" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -648,6 +622,8 @@
           <caret line="58" selection-start-line="58" selection-end-line="58" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#824#825#0" expanded="true" />
+            <element signature="e#870#871#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -673,6 +649,8 @@
           <caret line="32" lean-forward="true" selection-start-line="32" selection-end-line="32" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#16360#16361#0" expanded="true" />
+            <element signature="e#16398#16399#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -681,9 +659,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="306">
           <caret line="24" selection-start-line="24" selection-end-line="24" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -693,6 +668,8 @@
           <caret line="58" selection-start-line="58" selection-end-line="58" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#824#825#0" expanded="true" />
+            <element signature="e#870#871#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -718,6 +695,8 @@
           <caret line="35" column="37" selection-start-line="35" selection-start-column="37" selection-end-line="35" selection-end-column="37" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#16360#16361#0" expanded="true" />
+            <element signature="e#16398#16399#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -726,9 +705,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="306">
           <caret line="24" selection-start-line="24" selection-end-line="24" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -746,6 +722,8 @@
           <caret line="300" selection-start-line="300" selection-end-line="300" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#16360#16361#0" expanded="true" />
+            <element signature="e#16398#16399#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -763,6 +741,8 @@
           <caret line="58" lean-forward="true" selection-start-line="58" selection-end-line="58" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#824#825#0" expanded="true" />
+            <element signature="e#870#871#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -771,9 +751,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="306">
           <caret line="24" selection-start-line="24" selection-end-line="24" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -791,6 +768,8 @@
           <caret line="300" selection-start-line="300" selection-end-line="300" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#16360#16361#0" expanded="true" />
+            <element signature="e#16398#16399#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -808,6 +787,8 @@
           <caret line="67" column="8" selection-start-line="67" selection-start-column="8" selection-end-line="67" selection-end-column="8" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#824#825#0" expanded="true" />
+            <element signature="e#870#871#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -816,9 +797,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="68">
           <caret line="8" selection-start-line="8" selection-end-line="8" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -836,6 +814,8 @@
           <caret line="4" lean-forward="true" selection-start-line="4" selection-end-line="4" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#824#825#0" expanded="true" />
+            <element signature="e#870#871#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -850,16 +830,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state>
           <caret column="13" selection-start-column="13" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/StNrAlgorithm.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="7" column="13" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -878,30 +848,41 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="96">
+          <caret line="42" column="8" selection-start-line="42" selection-start-column="8" selection-end-line="42" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/Main.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="14" selection-start-line="14" selection-end-line="14" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+        <state>
+          <caret column="14" selection-start-column="14" selection-end-column="14" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/MainController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="25" lean-forward="true" selection-start-line="25" selection-end-line="25" />
+        <state relative-caret-position="357">
+          <caret line="57" column="9" selection-start-line="57" selection-start-column="9" selection-end-line="57" selection-end-column="9" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#824#825#0" expanded="true" />
+            <element signature="e#870#871#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/.gitignore">
+    <entry file="file://$PROJECT_DIR$/src/StNrAlgorithm.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="96">
-          <caret line="42" column="8" selection-start-line="42" selection-start-column="8" selection-end-line="42" selection-end-column="8" />
+        <state relative-caret-position="-293">
+          <caret line="40" column="86" lean-forward="true" selection-start-line="40" selection-start-column="86" selection-end-line="40" selection-end-column="86" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#16360#16361#0" expanded="true" />
+            <element signature="e#16398#16399#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

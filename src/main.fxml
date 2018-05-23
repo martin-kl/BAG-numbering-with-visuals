@@ -53,7 +53,7 @@
                <content>
                   <VBox fx:id="vbResult" prefWidth="745.0">
                      <children>
-                        <GridPane fx:id="gridPaneStatistical" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="150.0" prefWidth="520.0">
+                        <GridPane fx:id="gridPaneStatistical" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="150.0" prefWidth="585.0">
                            <columnConstraints>
                               <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                               <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -84,7 +84,7 @@
                                  <font>
                                     <Font size="16.0" />
                                  </font></Label>
-                              <Label fx:id="lbResult" prefHeight="25.0" prefWidth="265.0" text="/ Zuweisungen nicht gelungen!" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                              <Label fx:id="lbResult" prefHeight="25.0" prefWidth="297.0" text="/ Zuweisungen nicht gelungen!" GridPane.columnIndex="1" GridPane.rowIndex="2">
                                  <font>
                                     <Font size="16.0" />
                                  </font></Label>

@@ -50,12 +50,12 @@ public class MainController {
         int posCounter = 0;
         boolean lastResult;
         for (int i = 0; i < LOOP_TIMES - 1; i++) {
-            System.out.println("\t\tDurchlauf Nummer = " + (i + 1));
+            //System.out.println("\t\tDurchlauf Nummer = " + (i + 1));
             if (stNrAlgorithm.startAlgorithmOnce(false, true)) {
                 posCounter++;
             }
         }
-        System.out.println("\n\t\tDurchlauf Nummer = " + LOOP_TIMES);
+        //System.out.println("\n\t\tDurchlauf Nummer = " + LOOP_TIMES);
         if ((lastResult = stNrAlgorithm.startAlgorithmOnce(true, true))) {
             posCounter++;
         }

@@ -29,17 +29,15 @@ public class StNrAlgorithm {
         generator = new Random();
 
 
-
-
         //Erstellen aller teilnehmenden Kapellen
         Kapelle goellersdorf = new Kapelle("Blasmusikkapelle Göllersdorf", 311, 1, 5); //TODO Festzelt(2)
         Kapelle guntersdorf = new Kapelle("Trachtenkapelle Guntersdorf", 101, 1, ANZAHLKAPELLEN);
         Kapelle hadres = new Kapelle("Dorfmusik Hadres im Pulkautal", 345, 1, ANZAHLKAPELLEN);
         Kapelle hardegg = new Kapelle("Waldviertler Grenzlandkapelle Hardegg", 71, 1, ANZAHLKAPELLEN);
-        //Kapelle heldenberg = new Kapelle("Jugend-Radetzkykapelle Heldenberg", 999, 1, ANZAHLKAPELLEN); //Nummer fehlt
-        //Kapelle hollabrunn = new Kapelle("Stadtmusik Hollabrunn", 998, 1, ANZAHLKAPELLEN); //Nummer fehlt
+        //Kapelle heldenberg = new Kapelle("Jugend-Radetzkykapelle Heldenberg", 999, 1, ANZAHLKAPELLEN);
+        //Kapelle hollabrunn = new Kapelle("Stadtmusik Hollabrunn", 998, 1, ANZAHLKAPELLEN);
         Kapelle mailberg = new Kapelle("Weinviertler Hauerkapelle Mailberg", 340, 4, 4); //TODO wirklich 4. Kapelle?
-        Kapelle maissau = new Kapelle("Stadtmusik Maissau", 238, 1, 1); //Gastkapelle
+        Kapelle maissau = new Kapelle("Stadtmusik Maissau", 238, 1, 1);         //Gastkapelle
         Kapelle obermarkersdorf = new Kapelle("Musikkapelle Obermarkersdorf", 248, 1, ANZAHLKAPELLEN);
         Kapelle pulkau = new Kapelle("Trachtenkapelle Pulkau", 187, 1, 6); //TODO Festzelt(3)
         Kapelle ravelsbach = new Kapelle("Jugend-Deutschmeisterkapelle Ravelsbach", 338, 1,
@@ -51,14 +49,12 @@ public class StNrAlgorithm {
         Kapelle schmidatal = new Kapelle("Musikverein Schmidatal & Musikkapelle Roseldorf", 154, 1, ANZAHLKAPELLEN); //2018 gemeinsam angetreten
         Kapelle theras = new Kapelle("Trachtenkapelle Theras", 245, 1, ANZAHLKAPELLEN);
         Kapelle unterduernbach = new Kapelle("Musikverein Unterdürnbach", 997, 1,
-                ANZAHLKAPELLEN); //Nummer fehlt
+                ANZAHLKAPELLEN);
         Kapelle wullersdorf = new Kapelle("Jugend-Musikverein Wullersdorf", 435, 1, ANZAHLKAPELLEN);
         Kapelle zellerndorf = new Kapelle("Musikkapelle Zellerndorf", 170, 1, 2); //TODO Festzelt(1)
         Kapelle ziersdorf = new Kapelle("Trachtenkapelle Ziersdorf und Umgebung", 369, 1, 8);
         Kapelle kirchberg = new Kapelle("Musikverein Kirchberg am Wagram", 999, 1, ANZAHLKAPELLEN); //TODO Kirchberg am Wagram stimmt eh oder?
         Kapelle angerberg_mariastein = new Kapelle("Bundesmusikkapelle Angerberg/Mariastein", 999, 10, ANZAHLKAPELLEN);
-
-
 
 
         //Alle Kapellen-Objekte zu Liste aller Kapellen hinzufuegen
@@ -289,55 +285,60 @@ public class StNrAlgorithm {
 
     private boolean ermittleStartnummerI(Kapelle k) {
         zugeteilt = false;
-        boolean abstandNichtAusreichend;
 
         int attempt_counter = 0;
 
         while (!zugeteilt) {
             attempt_counter++;
-            abstandNichtAusreichend = false;
-            if (!generateStartingNumber(k)) {
-                continue;
-            } else {
-                for (int j = z - 3; j <= z + 3; j++) {
-                    if (j < 1) {
-                        //j = 1; //better continue here, cause algorithm is trying j=1 anyways in the case
-                        continue;
-                    }
-                    if (j == z) {
-                        j++;
-                    }
-                    if (j >= startingNumbers.length) {
-                        break;
-                    }
-                    for (Kapelle l : kapellenMitAbhaengigkeit.get(k)) {
-                        if (l.equals(startingNumbers[j])) {
-                            abstandNichtAusreichend = true;
-                            break;
-                        }
-                    }
-                    if (abstandNichtAusreichend) {
-                        break;
-                    }
-                }
-            }
-            if (!abstandNichtAusreichend) {
-                zugeteilt = true;
-                startingNumbers[z] = k;
-                vergebeneStNr.add(z);
-            } else {
-                if (attempt_counter > 200) {
-                    /*
-                    System.out.println("\nEs wurden bereits 200 Versuche für eine Startnummer für"
+            if (attempt_counter > 400) {
+                //stop it
+                System.err.println("ermittleStartnummerI\tEs wurden bereits 400 Versuche für eine Startnummer für"
                         + " " + k.getBez() + " getätigt, Abbruch folgt.");
-                        */
-                    System.err.println("ermittleStartnummerI\tEs wurden bereits 200 Versuche für eine Startnummer für"
-                            + " " + k.getBez() + " getätigt, Abbruch folgt.");
-                    return false;
+                return false;
+            }
+            if (!generateStartingNumber(k))
+                continue;
+            if (attempt_counter < 200) {
+                //check if there is another band with a dependence in range 3
+                if (!criticalBandsNotPossible(3, k)) {
+                    zugeteilt = true;
+                    startingNumbers[z] = k;
+                    vergebeneStNr.add(z);
+                    return true;
+                }
+            } else {
+
+                //check if there is another band with a dependence in range 2
+                if (!criticalBandsNotPossible(2, k)) {
+                    System.out.println("Zuweisung für " + k.getBez() + " gefunden, jedoch nur mit 2 Abstand zu einer anderen Kapelle mit Abhängigkeit!");
+                    zugeteilt = true;
+                    startingNumbers[z] = k;
+                    vergebeneStNr.add(z);
+                    return true;
                 }
             }
         }
-        return true;
+        return false;
+    }
+
+    private boolean criticalBandsNotPossible(int differenceBetweenBands, Kapelle k) {
+        for (int j = z - differenceBetweenBands; j <= z + differenceBetweenBands; j++) {
+            if (j < 1) {
+                continue;
+            }
+            if (j == z) {
+                j++;
+            }
+            if (j >= startingNumbers.length) {
+                break;
+            }
+            for (Kapelle l : kapellenMitAbhaengigkeit.get(k)) {
+                if (l.equals(startingNumbers[j])) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     private void ermittleStartnummerII(Kapelle k) {
