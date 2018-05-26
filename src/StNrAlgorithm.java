@@ -30,16 +30,16 @@ public class StNrAlgorithm {
 
 
         //Erstellen aller teilnehmenden Kapellen
-        Kapelle goellersdorf = new Kapelle("Blasmusikkapelle Göllersdorf", 311, 1, 5); //TODO Festzelt(2)
+        Kapelle goellersdorf = new Kapelle("Blasmusikkapelle Göllersdorf", 311, 1, 5); //Festzelt(2)
         Kapelle guntersdorf = new Kapelle("Trachtenkapelle Guntersdorf", 101, 1, ANZAHLKAPELLEN);
         Kapelle hadres = new Kapelle("Dorfmusik Hadres im Pulkautal", 345, 1, ANZAHLKAPELLEN);
         Kapelle hardegg = new Kapelle("Waldviertler Grenzlandkapelle Hardegg", 71, 1, ANZAHLKAPELLEN);
         //Kapelle heldenberg = new Kapelle("Jugend-Radetzkykapelle Heldenberg", 999, 1, ANZAHLKAPELLEN);
         //Kapelle hollabrunn = new Kapelle("Stadtmusik Hollabrunn", 998, 1, ANZAHLKAPELLEN);
-        Kapelle mailberg = new Kapelle("Weinviertler Hauerkapelle Mailberg", 340, 4, 4); //TODO wirklich 4. Kapelle?
+        Kapelle mailberg = new Kapelle("Weinviertler Hauerkapelle Mailberg", 340, 4, 4); //wirklich 4. Kapelle?
         Kapelle maissau = new Kapelle("Stadtmusik Maissau", 238, 1, 1);         //Gastkapelle
         Kapelle obermarkersdorf = new Kapelle("Musikkapelle Obermarkersdorf", 248, 1, ANZAHLKAPELLEN);
-        Kapelle pulkau = new Kapelle("Trachtenkapelle Pulkau", 187, 1, 6); //TODO Festzelt(3)
+        Kapelle pulkau = new Kapelle("Trachtenkapelle Pulkau", 187, 1, 6); //Festzelt(3)
         Kapelle ravelsbach = new Kapelle("Jugend-Deutschmeisterkapelle Ravelsbach", 338, 1,
                 ANZAHLKAPELLEN);
         Kapelle retz = new Kapelle("Stadtkapelle Retz", 278, 1, ANZAHLKAPELLEN);
@@ -48,12 +48,11 @@ public class StNrAlgorithm {
         //Kapelle roseldorf = new Kapelle("Musikkapelle Roseldorf", 378, 1, ANZAHLKAPELLEN);
         Kapelle schmidatal = new Kapelle("Musikverein Schmidatal & Musikkapelle Roseldorf", 154, 1, ANZAHLKAPELLEN); //2018 gemeinsam angetreten
         Kapelle theras = new Kapelle("Trachtenkapelle Theras", 245, 1, ANZAHLKAPELLEN);
-        Kapelle unterduernbach = new Kapelle("Musikverein Unterdürnbach", 997, 1,
-                ANZAHLKAPELLEN);
+        Kapelle unterduernbach = new Kapelle("Musikverein Unterdürnbach", 997, 1, ANZAHLKAPELLEN);
         Kapelle wullersdorf = new Kapelle("Jugend-Musikverein Wullersdorf", 435, 1, ANZAHLKAPELLEN);
-        Kapelle zellerndorf = new Kapelle("Musikkapelle Zellerndorf", 170, 1, 2); //TODO Festzelt(1)
+        Kapelle zellerndorf = new Kapelle("Musikkapelle Zellerndorf", 170, 1, 2); //Festzelt(1)
         Kapelle ziersdorf = new Kapelle("Trachtenkapelle Ziersdorf und Umgebung", 369, 1, 8);
-        Kapelle kirchberg = new Kapelle("Musikverein Kirchberg am Wagram", 999, 1, ANZAHLKAPELLEN); //TODO Kirchberg am Wagram stimmt eh oder?
+        Kapelle kirchberg = new Kapelle("Musikverein Kirchberg am Wagram", 999, 1, ANZAHLKAPELLEN);
         Kapelle angerberg_mariastein = new Kapelle("Bundesmusikkapelle Angerberg/Mariastein", 999, 10, ANZAHLKAPELLEN);
 
 
@@ -77,15 +76,22 @@ public class StNrAlgorithm {
         //Hinzufügen aller Kapellen mit Doppelmusikern
         this.kapellenMitAbhaengigkeit = new HashMap<>();
 
+
+
+
         //Stand 2018:
         kapellenMitAbhaengigkeit.put(obermarkersdorf, new ArrayList<>(Arrays.asList(hardegg, zellerndorf, pulkau)));
-        kapellenMitAbhaengigkeit.put(zellerndorf, new ArrayList<>(Arrays.asList(obermarkersdorf)));
-        kapellenMitAbhaengigkeit.put(pulkau, new ArrayList<>(Arrays.asList(obermarkersdorf)));
-        kapellenMitAbhaengigkeit.put(hardegg, new ArrayList<>(Arrays.asList(obermarkersdorf)));
+        kapellenMitAbhaengigkeit.put(zellerndorf, new ArrayList<>(Collections.singletonList(obermarkersdorf)));
+        kapellenMitAbhaengigkeit.put(pulkau, new ArrayList<>(Collections.singletonList(obermarkersdorf)));
+        kapellenMitAbhaengigkeit.put(hardegg, new ArrayList<>(Collections.singletonList(obermarkersdorf)));
 
         kapellenMitAbhaengigkeit.put(schmidatal, new ArrayList<>(Arrays.asList(mailberg, wullersdorf)));
-        kapellenMitAbhaengigkeit.put(mailberg, new ArrayList<>(Arrays.asList(schmidatal)));
-        kapellenMitAbhaengigkeit.put(wullersdorf, new ArrayList<>(Arrays.asList(schmidatal)));
+        kapellenMitAbhaengigkeit.put(mailberg, new ArrayList<>(Collections.singletonList(schmidatal)));
+        kapellenMitAbhaengigkeit.put(wullersdorf, new ArrayList<>(Collections.singletonList(schmidatal)));
+
+
+
+
 
         /* //Stand 2017:
         kapellenMitAbhaengigkeit
