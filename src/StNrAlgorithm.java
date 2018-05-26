@@ -77,8 +77,6 @@ public class StNrAlgorithm {
         this.kapellenMitAbhaengigkeit = new HashMap<>();
 
 
-
-
         //Stand 2018:
         kapellenMitAbhaengigkeit.put(obermarkersdorf, new ArrayList<>(Arrays.asList(hardegg, zellerndorf, pulkau)));
         kapellenMitAbhaengigkeit.put(zellerndorf, new ArrayList<>(Collections.singletonList(obermarkersdorf)));
@@ -143,10 +141,6 @@ public class StNrAlgorithm {
 
         //start assigning starting numbers
         if (!teileStartnummernZu()) {
-            /*
-            System.out.println("Mit der begonnenen Zuweisung konnte kein passendes Ergebnis für"
-                + " alle Kapellen gefunden werden, breche diesen Versuch ab...");
-                */
             System.err.println("Mit der begonnenen Zuweisung konnte kein passendes Ergebnis für"
                     + " alle Kapellen gefunden werden, breche diesen Versuch ab...");
             return false;
@@ -275,16 +269,22 @@ public class StNrAlgorithm {
                     return false;
                 }
             } else {
-                ermittleStartnummerII(k);
+                if (!ermittleStartnummerII(k)) {
+                    return false;
+                }
             }
         }
 
         for (Kapelle k : kritischeKapellen2) {
-            ermittleStartnummerII(k);
+            if (!ermittleStartnummerII(k)) {
+                return false;
+            }
         }
 
         for (Kapelle k : kritischeKapellen3) {
-            ermittleStartnummerII(k);
+            if (!ermittleStartnummerII(k)) {
+                return false;
+            }
         }
         return true;
     }
@@ -347,7 +347,7 @@ public class StNrAlgorithm {
         return false;
     }
 
-    private void ermittleStartnummerII(Kapelle k) {
+    private boolean ermittleStartnummerII(Kapelle k) {
         zugeteilt = false;
         //the attempt_counter is added in case that two orchestras have just one possible value
         int attempt_counter = 0;
@@ -364,7 +364,9 @@ public class StNrAlgorithm {
             //most likely 2 orchestras have just one possible starting number (the same)
             System.err.println("ermittleStartnummer2\tEs wurden bereits 400 Versuche für eine Startnummer für"
                     + " " + k.getBez() + " getätigt, Abbruch folgt.");
+            return false;
         }
+        return true;
     }
 
     /**
