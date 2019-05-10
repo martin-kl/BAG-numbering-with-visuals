@@ -1,3 +1,5 @@
+package bag.numbering;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -387,7 +389,7 @@ public class StNrAlgorithm {
         System.out.println("Startreihenfolge für die Marschmusikbewertung 2018");
         System.out.println();
         for (int i = 1; i < startingNumbers.length; i++) {
-            System.out.println(i + ". " + startingNumbers[i].getBez());
+            System.out.println(i + " " + startingNumbers[i].getBez());
         }
     }
 
