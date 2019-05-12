@@ -2,7 +2,6 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ButtonBar?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TableColumn?>
@@ -112,33 +111,16 @@
                         </GridPane>
                         <BorderPane fx:id="bpSettings" prefHeight="550.0">
                            <center>
-                              <TableView fx:id="tblSettings" editable="true" BorderPane.alignment="CENTER">
+                              <TableView fx:id="tblSettings" editable="true" prefWidth="725.0" BorderPane.alignment="CENTER">
                                  <columns>
-                                    <TableColumn fx:id="clmName" editable="false" minWidth="150.0" prefWidth="200.0" text="Kapelle" />
-                                    <TableColumn fx:id="clmEarliest" prefWidth="60.0" text="früheste" />
-                                    <TableColumn fx:id="clmLatest" prefWidth="60.0" text="späteste" />
-                                    <TableColumn fx:id="dependency1" minWidth="20.0" sortable="false" text="Abh. 1" />
-                                    <TableColumn sortable="false" text="Abh. 2" />
-                                    <TableColumn sortable="false" text="Abh. 3" />
-                                    <TableColumn sortable="false" text="Abh. 4" />
-                                    <TableColumn sortable="false" text="Abh. 5" />
+                                    <TableColumn fx:id="clmName" editable="false" minWidth="300.0" prefWidth="350.0" text="Kapelle" />
+                                    <TableColumn fx:id="clmEarliest" minWidth="50.0" prefWidth="100.0" text="früheste Startnr." />
+                                    <TableColumn fx:id="clmLatest" minWidth="50.0" prefWidth="100.0" text="späteste Startnr." />
+                                    <TableColumn fx:id="clmActive" prefWidth="75.0" text="aktiv" />
+                                    <TableColumn fx:id="clmEdit" prefWidth="75.0" />
                                  </columns>
                               </TableView>
                            </center>
-                           <bottom>
-                              <ButtonBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-                                <buttons>
-                                  <Button mnemonicParsing="false" onAction="#saveSettings" text="Speichern">
-                                       <font>
-                                          <Font size="16.0" />
-                                       </font>
-                                    </Button>
-                                </buttons>
-                                 <BorderPane.margin>
-                                    <Insets left="20.0" right="20.0" top="10.0" />
-                                 </BorderPane.margin>
-                              </ButtonBar>
-                           </bottom>
                         </BorderPane>
                      </children>
                      <padding>

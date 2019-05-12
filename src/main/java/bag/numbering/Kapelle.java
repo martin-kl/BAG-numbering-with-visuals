@@ -1,37 +1,31 @@
 package bag.numbering;
 
-import java.util.ArrayList;
-
 public class Kapelle {
 
     private String bez;
     private int mNr;
     private int frStNr;
     private int spStNr;
-    private ArrayList<Kapelle> dependencies;
+    private boolean active;
 
     Kapelle(String bez, int mNr, int frStNr, int spStNr) {
         this.bez = bez;
         this.mNr = mNr;
         this.frStNr = frStNr;
         this.spStNr = spStNr;
-        this.dependencies = new ArrayList<>();
+        this.active = true;
     }
 
-    public Kapelle(String bez, int mNr, int frStNr, int spStNr, ArrayList<Kapelle> dependencies) {
+    public Kapelle(String bez, int mNr, int frStNr, int spStNr, boolean active) {
         this.bez = bez;
         this.mNr = mNr;
         this.frStNr = frStNr;
         this.spStNr = spStNr;
-        this.dependencies = dependencies;
+        this.active = active;
     }
 
-    public ArrayList<Kapelle> getDependencies() {
-        return dependencies;
-    }
-
-    public void setDependencies(ArrayList<Kapelle> dependencies) {
-        this.dependencies = dependencies;
+    public void setBez(String bez) {
+        this.bez = bez;
     }
 
     public String getBez() {
@@ -66,6 +60,14 @@ public class Kapelle {
         this.spStNr = spStNr;
     }
 
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
+    }
+
     public boolean equals(Object obj) {
         if (obj instanceof Kapelle) {
             Kapelle kap = (Kapelle) obj;
@@ -81,7 +83,7 @@ public class Kapelle {
                 ", mNr=" + mNr +
                 ", frStNr=" + frStNr +
                 ", spStNr=" + spStNr +
-                ", dependencies=" + dependencies +
+                ", active=" + active +
                 '}';
     }
 }

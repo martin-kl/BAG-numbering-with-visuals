@@ -1,25 +1,31 @@
 package bag.numbering;
 
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.control.cell.ComboBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
+import javafx.util.Callback;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.stream.Collectors;
+import java.util.HashMap;
+import java.util.Map;
 
 public class MainController {
-
     @FXML
     public AnchorPane anchorPane;
     @FXML
@@ -37,10 +43,10 @@ public class MainController {
     private static final int LOOP_TIMES = 1000;
 
     //all variables for settings:
+    private Map<Kapelle, ArrayList<Kapelle>> kapellenMitAbhaengigkeit = new HashMap<>(); //Kapellen mit Doppelmusikern
+
     @FXML
     public BorderPane bpSettings;
-
-    private final int PARTICIPANTS = 20; //number of participants
     private ObservableList<Kapelle> data = FXCollections.observableArrayList();
     @FXML
     public TableView<Kapelle> tblSettings;
@@ -51,9 +57,13 @@ public class MainController {
     @FXML
     public TableColumn<Kapelle, String> clmLatest;
     @FXML
-    public TableColumn<Kapelle, String> dependency1;
+    public TableColumn<Kapelle, Boolean> clmActive;
+    @FXML
+    public TableColumn<Kapelle, String> clmEdit;
 
     //Create all participants
+    private final int PARTICIPANTS = 20; //number of participants
+
     Kapelle goellersdorf = new Kapelle("Blasmusikkapelle Göllersdorf", 311, 1, 5); //Festzelt(2)
     Kapelle guntersdorf = new Kapelle("Trachtenkapelle Guntersdorf", 101, 1, PARTICIPANTS);
     Kapelle hadres = new Kapelle("Dorfmusik Hadres im Pulkautal", 345, 1, PARTICIPANTS);
@@ -83,10 +93,6 @@ public class MainController {
             hardegg, mailberg, maissau, obermarkersdorf, pulkau, ravelsbach, retz, retzbach, roeschitz, schmidatal,
             theras, unterduernbach, wullersdorf, zellerndorf, ziersdorf, kirchberg, angerberg_mariastein));
 
-    public ObservableList<Kapelle> getData() {
-        return data;
-    }
-
     public void initialize() {
         vbResult.getChildren().clear();
 
@@ -110,13 +116,59 @@ public class MainController {
                         setSpStNr(Integer.parseInt(event.getNewValue()))
         );
 
-        dependency1.setCellValueFactory(c -> {
-            Kapelle kap = c.getValue();
-            if (kap.getDependencies().size() > 0)
-                return new SimpleStringProperty(kap.getDependencies().get(0).getBez());
-            return new SimpleStringProperty("");
+        clmActive.setCellValueFactory(c -> new SimpleBooleanProperty(c.getValue().isActive()));
+
+        clmEdit.setCellValueFactory(new PropertyValueFactory<>("DUMMY"));
+        clmEdit.setCellFactory(new Callback<TableColumn<Kapelle, String>, TableCell<Kapelle, String>>() {
+            @Override
+            public TableCell<Kapelle, String> call(TableColumn<Kapelle, String> param) {
+                return new TableCell<Kapelle, String>() {
+                    final Button btnEdit = new Button("Edit");
+
+                    @Override
+                    public void updateItem(String item, boolean empty) {
+                        super.updateItem(item, empty);
+                        if (empty) {
+                            setGraphic(null);
+                            setText(null);
+                        } else {
+                            btnEdit.setOnAction(event -> {
+                                Kapelle kap = getTableView().getItems().get(getIndex());
+                                //TODO handle this correctly
+                                System.out.println(" klick on -> " + kap.getBez());
+                                FXMLLoader loader = new FXMLLoader(getClass().getResource("/edit.fxml"));
+                                try {
+                                    Parent parent = loader.load();
+                                    EditController editController = loader.getController();
+                                    editController.init(kap, kapellenMitAbhaengigkeit.get(kap), data);
+                                    Stage stage = new Stage();
+                                    stage.setTitle("Kapelle bearbeiten");
+                                    stage.initOwner(tblSettings.getScene().getWindow());
+                                    stage.setScene(new Scene(parent));
+                                    stage.setOnCloseRequest(c -> editController.saveEdit(null));
+                                    //block until windows is closed
+                                    stage.showAndWait();
+
+                                    //get value back
+                                    Kapelle newKap = editController.getKapelle();
+                                    kap.setBez(newKap.getBez());
+                                    kap.setFrStNr(newKap.getFrStNr());
+                                    kap.setSpStNr(newKap.getSpStNr());
+                                    kap.setActive(newKap.isActive());
+                                    //and get dependencies
+                                    kapellenMitAbhaengigkeit.put(kap, editController.getDependencies());
+                                    tblSettings.refresh();
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
+                            });
+                            setGraphic(btnEdit);
+                            setText(null);
+                        }
+                    }
+                };
+            }
         });
-        dependency1.setCellFactory(ComboBoxTableCell.forTableColumn());
 
         data.addAll(allParticipants);
         tblSettings.setItems(data);
@@ -126,14 +178,6 @@ public class MainController {
         vbResult.getChildren().clear();
         vbResult.getChildren().add(bpSettings);
     }
-
-    public void saveSettings(ActionEvent actionEvent) {
-        System.out.println("TODO: take data and use this in algorithm");
-        for (Kapelle k : data) {
-            System.out.println(" - > " + k.toString());
-        }
-    }
-
 
     public void startAlgorithmNormally(ActionEvent actionEvent) {
         StNrAlgorithm stNrAlgorithm = new StNrAlgorithm();
