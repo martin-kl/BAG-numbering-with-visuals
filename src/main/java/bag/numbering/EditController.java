@@ -1,9 +1,10 @@
 package bag.numbering;
 
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
+import javafx.scene.control.Alert;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
@@ -11,7 +12,8 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 public class EditController {
     @FXML
@@ -36,35 +38,52 @@ public class EditController {
     public ChoiceBox<Kapelle> cbDep5;
 
     private ObservableList<Kapelle> kapellen;
-    private ArrayList<Kapelle> dependencies = new ArrayList<>(5);
+    private Set<Kapelle> dependencies = new HashSet<>(5);
     private Kapelle kap;
 
     public void saveEdit(ActionEvent actionEvent) {
+        //sanity checks:
+        //get dependencies
+        readDependencies();
+        if ((dependencies.size() > 0 && dependencies.contains(kap)) ||
+                txName.getText().length() < 3) {
+            dependencies.clear();
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Fehler");
+            alert.setHeaderText("Daten nicht valide");
+            alert.setContentText("Daten sind nicht valide - Abhängigkeit zu sich selbst?!");
+            alert.showAndWait();
+            return;
+        }
+
         kap.setBez(txName.getText());
         kap.setFrStNr(Integer.parseInt(txEarliest.getText()));
         kap.setSpStNr(Integer.parseInt(txLatest.getText()));
         kap.setActive(cbActive.isSelected());
 
-        //get dependencies
-        getDependencies(cbDep1);
-        getDependencies(cbDep2);
-        getDependencies(cbDep3);
-        getDependencies(cbDep4);
-        getDependencies(cbDep5);
         //finally close the stage
         Stage stage = (Stage) (settingsPane.getScene().getWindow());
         stage.close();
     }
 
-    private void getDependencies(ChoiceBox<Kapelle> cbDep) {
-        if (cbDep.getValue() != null) {
-            dependencies.add(cbDep.getValue());
-        }
+    private void readDependencies() {
+        if (cbDep1.getValue() != null)
+            dependencies.add(cbDep1.getValue());
+        if (cbDep2.getValue() != null)
+            dependencies.add(cbDep2.getValue());
+        if (cbDep3.getValue() != null)
+            dependencies.add(cbDep3.getValue());
+        if (cbDep4.getValue() != null)
+            dependencies.add(cbDep4.getValue());
+        if (cbDep5.getValue() != null)
+            dependencies.add(cbDep5.getValue());
     }
 
-    public void init(Kapelle kap, ArrayList<Kapelle> dep, ObservableList<Kapelle> kapellen) {
+    public void init(Kapelle kap, ArrayList<Kapelle> dep, ObservableList<Kapelle> data) {
         this.kap = kap;
-        this.kapellen = kapellen;
+        //copy kapellen so we can add something to it
+        kapellen = FXCollections.observableArrayList(data);
+        kapellen.add(0, null);
 
         txName.setText(kap.getBez());
         txEarliest.setText(kap.getFrStNr() + "");
@@ -98,6 +117,6 @@ public class EditController {
     }
 
     public ArrayList<Kapelle> getDependencies() {
-        return dependencies;
+        return new ArrayList<>(dependencies);
     }
 }

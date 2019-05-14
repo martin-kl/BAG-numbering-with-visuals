@@ -20,10 +20,8 @@ import javafx.stage.Stage;
 import javafx.util.Callback;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class MainController {
     @FXML
@@ -43,7 +41,7 @@ public class MainController {
     private static final int LOOP_TIMES = 1000;
 
     //all variables for settings:
-    private Map<Kapelle, ArrayList<Kapelle>> kapellenMitAbhaengigkeit = new HashMap<>(); //Kapellen mit Doppelmusikern
+    private Map<Kapelle, ArrayList<Kapelle>> dependencies = new HashMap<>(); //Kapellen mit Doppelmusikern
 
     @FXML
     public BorderPane bpSettings;
@@ -62,39 +60,37 @@ public class MainController {
     public TableColumn<Kapelle, String> clmEdit;
 
     //Create all participants
-    private final int PARTICIPANTS = 20; //number of participants
-
     Kapelle goellersdorf = new Kapelle("Blasmusikkapelle Göllersdorf", 311, 1, 5); //Festzelt(2)
-    Kapelle guntersdorf = new Kapelle("Trachtenkapelle Guntersdorf", 101, 1, PARTICIPANTS);
-    Kapelle hadres = new Kapelle("Dorfmusik Hadres im Pulkautal", 345, 1, PARTICIPANTS);
-    Kapelle hardegg = new Kapelle("Waldviertler Grenzlandkapelle Hardegg", 71, 1, PARTICIPANTS);
+    Kapelle guntersdorf = new Kapelle("Trachtenkapelle Guntersdorf", 101);
+    Kapelle hadres = new Kapelle("Dorfmusik Hadres im Pulkautal", 345);
+    Kapelle hardegg = new Kapelle("Waldviertler Grenzlandkapelle Hardegg", 71);
     //Kapelle heldenberg = new Kapelle("Jugend-Radetzkykapelle Heldenberg", 999, 1, PARTICIPANTS);
     //Kapelle hollabrunn = new Kapelle("Stadtmusik Hollabrunn", 998, 1, PARTICIPANTS);
     Kapelle mailberg = new Kapelle("Weinviertler Hauerkapelle Mailberg", 340, 4, 4); //wirklich 4. Kapelle?
     Kapelle maissau = new Kapelle("Stadtmusik Maissau", 238, 1, 1);         //Gastkapelle
-    Kapelle obermarkersdorf = new Kapelle("Musikkapelle Obermarkersdorf", 248, 1, PARTICIPANTS);
+    Kapelle obermarkersdorf = new Kapelle("Musikkapelle Obermarkersdorf", 248);
     Kapelle pulkau = new Kapelle("Trachtenkapelle Pulkau", 187, 1, 6); //Festzelt(3)
-    Kapelle ravelsbach = new Kapelle("Jugend-Deutschmeisterkapelle Ravelsbach", 338, 1,
-            PARTICIPANTS);
-    Kapelle retz = new Kapelle("Stadtkapelle Retz", 278, 1, PARTICIPANTS);
-    Kapelle retzbach = new Kapelle("Trachtenkapelle Retzbach", 191, 1, PARTICIPANTS);
-    Kapelle roeschitz = new Kapelle("Musikverein Röschitz", 122, 1, PARTICIPANTS);
+    Kapelle ravelsbach = new Kapelle("Jugend-Deutschmeisterkapelle Ravelsbach", 338);
+    Kapelle retz = new Kapelle("Stadtkapelle Retz", 278);
+    Kapelle retzbach = new Kapelle("Trachtenkapelle Retzbach", 191);
+    Kapelle roeschitz = new Kapelle("Musikverein Röschitz", 122);
     //Kapelle roseldorf = new Kapelle("Musikkapelle Roseldorf", 378, 1, PARTICIPANTS);
-    Kapelle schmidatal = new Kapelle("Musikverein Schmidatal & Musikkapelle Roseldorf", 154, 1, PARTICIPANTS); //2018 gemeinsam angetreten
-    Kapelle theras = new Kapelle("Trachtenkapelle Theras", 245, 1, PARTICIPANTS);
-    Kapelle unterduernbach = new Kapelle("Musikverein Unterdürnbach", 997, 1, PARTICIPANTS);
-    Kapelle wullersdorf = new Kapelle("Jugend-Musikverein Wullersdorf", 435, 1, PARTICIPANTS);
+    Kapelle schmidatal = new Kapelle("Musikverein Schmidatal & Musikkapelle Roseldorf", 154); //2018 gemeinsam angetreten
+    Kapelle theras = new Kapelle("Trachtenkapelle Theras", 245);
+    Kapelle unterduernbach = new Kapelle("Musikverein Unterdürnbach", 997);
+    Kapelle wullersdorf = new Kapelle("Jugend-Musikverein Wullersdorf", 435);
     Kapelle zellerndorf = new Kapelle("Musikkapelle Zellerndorf", 170, 1, 2); //Festzelt(1)
     Kapelle ziersdorf = new Kapelle("Trachtenkapelle Ziersdorf und Umgebung", 369, 1, 8);
-    Kapelle kirchberg = new Kapelle("Musikverein Kirchberg am Wagram", 999, 1, PARTICIPANTS);
-    Kapelle angerberg_mariastein = new Kapelle("Bundesmusikkapelle Angerberg/Mariastein", 999, 10, PARTICIPANTS);
+    Kapelle kirchberg = new Kapelle("Musikverein Kirchberg am Wagram", 999);
+    Kapelle angerberg_mariastein = new Kapelle("Bundesmusikkapelle Angerberg/Mariastein", 999, 10, 0);
 
-    private final ArrayList<Kapelle> allParticipants = new ArrayList<>(Arrays.asList(goellersdorf, guntersdorf, hadres,
+    private final ArrayList<Kapelle> allKapellen = new ArrayList<>(Arrays.asList(goellersdorf, guntersdorf, hadres,
             hardegg, mailberg, maissau, obermarkersdorf, pulkau, ravelsbach, retz, retzbach, roeschitz, schmidatal,
             theras, unterduernbach, wullersdorf, zellerndorf, ziersdorf, kirchberg, angerberg_mariastein));
 
     public void initialize() {
         vbResult.getChildren().clear();
+        vbResult.getChildren().add(bpSettings);
 
         //initialize table
 
@@ -102,14 +98,18 @@ public class MainController {
         //tblSettings.setEditable(true);
 
         clmName.setCellValueFactory(new PropertyValueFactory<>("bez"));
-        clmEarliest.setCellValueFactory((c) -> new SimpleStringProperty(c.getValue().getFrStNr() + ""));
+        clmEarliest.setCellValueFactory(c -> new SimpleStringProperty(
+                c.getValue().getFrStNr() == 0 ? "" : c.getValue().getFrStNr() + ""
+        ));
         clmEarliest.setCellFactory(TextFieldTableCell.forTableColumn());
         //clmEarliest.setEditable(true);
         clmEarliest.setOnEditCommit(
                 event -> event.getTableView().getItems().get(event.getTablePosition().getRow()).
                         setFrStNr(Integer.parseInt(event.getNewValue()))
         );
-        clmLatest.setCellValueFactory((c) -> new SimpleStringProperty(c.getValue().getSpStNr() + ""));
+        clmLatest.setCellValueFactory(c -> new SimpleStringProperty(
+                c.getValue().getSpStNr() == 0 ? "" : c.getValue().getSpStNr() + ""
+        ));
         clmLatest.setCellFactory(TextFieldTableCell.forTableColumn());
         clmLatest.setOnEditCommit(
                 event -> event.getTableView().getItems().get(event.getTablePosition().getRow()).
@@ -134,13 +134,11 @@ public class MainController {
                         } else {
                             btnEdit.setOnAction(event -> {
                                 Kapelle kap = getTableView().getItems().get(getIndex());
-                                //TODO handle this correctly
-                                System.out.println(" klick on -> " + kap.getBez());
                                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/edit.fxml"));
                                 try {
                                     Parent parent = loader.load();
                                     EditController editController = loader.getController();
-                                    editController.init(kap, kapellenMitAbhaengigkeit.get(kap), data);
+                                    editController.init(kap, dependencies.get(kap), data);
                                     Stage stage = new Stage();
                                     stage.setTitle("Kapelle bearbeiten");
                                     stage.initOwner(tblSettings.getScene().getWindow());
@@ -156,7 +154,8 @@ public class MainController {
                                     kap.setSpStNr(newKap.getSpStNr());
                                     kap.setActive(newKap.isActive());
                                     //and get dependencies
-                                    kapellenMitAbhaengigkeit.put(kap, editController.getDependencies());
+                                    dependencies.put(kap, editController.getDependencies());
+                                    Utils.keepDependenciesUpToDate(dependencies, kap);
                                     tblSettings.refresh();
                                 } catch (IOException e) {
                                     e.printStackTrace();
@@ -170,7 +169,7 @@ public class MainController {
             }
         });
 
-        data.addAll(allParticipants);
+        data.addAll(allKapellen);
         tblSettings.setItems(data);
     }
 
@@ -179,16 +178,37 @@ public class MainController {
         vbResult.getChildren().add(bpSettings);
     }
 
+
     public void startAlgorithmNormally(ActionEvent actionEvent) {
-        StNrAlgorithm stNrAlgorithm = new StNrAlgorithm();
+        ArrayList<Kapelle> participants = Utils.deepCopyOfActiveOnes(allKapellen);
+        if (!isDataValid(participants)) {
+            return;
+        }
+        //refresh so that all calculated values are now seen in the table
+        tblSettings.refresh();
+
+        StNrAlgorithm stNrAlgorithm = getInitializedStrNrAlgorithmInstance(participants);
+
         //stNrAlgorithm.startAlgorithmOnce(true, false);
         boolean result = stNrAlgorithm.startAlgorithmLoop(false);
 
         addResultToGraphicOutput(true, stNrAlgorithm.getResult(), result);
+        if (!result) {
+            showErrorAlert("Zuweisung fehlgeschlagen",
+                    "Konnte selbst nach " + StNrAlgorithm.MAX_TRIES + " Versuchen keine Zurodnung finden!");
+        }
     }
 
     public void startAlgorithmLoop(ActionEvent actionEvent) {
-        StNrAlgorithm stNrAlgorithm = new StNrAlgorithm();
+        ArrayList<Kapelle> participants = Utils.deepCopyOfActiveOnes(allKapellen);
+        if (!isDataValid(participants)) {
+            return;
+        }
+        //refresh so that all calculated values are now seen in the table
+        tblSettings.refresh();
+
+        StNrAlgorithm stNrAlgorithm = getInitializedStrNrAlgorithmInstance(participants);
+
         int posCounter = 0;
         boolean lastResult;
         for (int i = 0; i < LOOP_TIMES - 1; i++) {
@@ -217,6 +237,44 @@ public class MainController {
         vbResult.getChildren().add(new Label(""));
 
         addResultToGraphicOutput(false, stNrAlgorithm.getResult(), lastResult);
+        if (LOOP_TIMES - posCounter == LOOP_TIMES) {
+            showErrorAlert("Alle Zuweisungen fehlgeschlagen", "Alle versuchten " + LOOP_TIMES + "" +
+                    " Zuweisungen sind fehlgeschlagen!");
+        }
+    }
+
+    private boolean isDataValid(ArrayList<Kapelle> participants) {
+        String res = Utils.pruefeStNr(participants);
+        if (!res.equals("")) {
+            showErrorAlert("Daten nicht valide", res);
+            return false;
+        }
+
+        res = Utils.pruefeAbhaengigkeit(dependencies);
+        if (!res.equals("")) {
+            showErrorAlert("Daten nicht valide", res);
+            return false;
+        }
+        return true;
+    }
+
+    private void showErrorAlert(String headerText, String content) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Fehler");
+        alert.setHeaderText(headerText);
+        alert.setContentText(content);
+        alert.showAndWait();
+    }
+
+    private StNrAlgorithm getInitializedStrNrAlgorithmInstance(ArrayList<Kapelle> participants) {
+        Map<Kapelle, ArrayList<Kapelle>> participatingDependencies = new HashMap<>();
+        for (Kapelle kap : dependencies.keySet()) {
+            if (kap.isActive())
+                participatingDependencies.put(kap, dependencies.get(kap));
+        }
+        StNrAlgorithm stNrAlgorithm = new StNrAlgorithm(participants, participatingDependencies);
+        stNrAlgorithm.init();
+        return stNrAlgorithm;
     }
 
     private void addResultToGraphicOutput(boolean deleteList, Kapelle[] result, boolean resultStatus) {

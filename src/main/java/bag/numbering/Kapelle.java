@@ -8,6 +8,18 @@ public class Kapelle {
     private int spStNr;
     private boolean active;
 
+    public Kapelle(String bez) {
+        this.bez = bez;
+        this.mNr = -1;
+        this.active = true;
+    }
+
+    public Kapelle(String bez, int mNr) {
+        this.bez = bez;
+        this.mNr = mNr;
+        this.active = true;
+    }
+
     Kapelle(String bez, int mNr, int frStNr, int spStNr) {
         this.bez = bez;
         this.mNr = mNr;

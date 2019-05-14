@@ -65,11 +65,11 @@
                   <Font size="16.0" />
                </font>
             </CheckBox>
-            <ChoiceBox fx:id="cbDep1" layoutX="218.0" layoutY="261.0" prefWidth="150.0" />
-            <ChoiceBox fx:id="cbDep2" layoutX="218.0" layoutY="294.0" prefWidth="150.0" />
-            <ChoiceBox fx:id="cbDep3" layoutX="218.0" layoutY="330.0" prefWidth="150.0" />
-            <ChoiceBox fx:id="cbDep4" layoutX="218.0" layoutY="364.0" prefWidth="150.0" />
-            <ChoiceBox fx:id="cbDep5" layoutX="218.0" layoutY="397.0" prefWidth="150.0" />
+            <ChoiceBox fx:id="cbDep1" layoutX="218.0" layoutY="261.0" prefWidth="325.0" />
+            <ChoiceBox fx:id="cbDep2" layoutX="218.0" layoutY="294.0" prefWidth="325.0" />
+            <ChoiceBox fx:id="cbDep3" layoutX="218.0" layoutY="330.0" prefWidth="325.0" />
+            <ChoiceBox fx:id="cbDep4" layoutX="218.0" layoutY="364.0" prefWidth="325.0" />
+            <ChoiceBox fx:id="cbDep5" layoutX="218.0" layoutY="397.0" prefWidth="325.0" />
             <Label layoutX="95.0" layoutY="261.0" text="Abhängigkeit 1">
                <font>
                   <Font size="16.0" />
