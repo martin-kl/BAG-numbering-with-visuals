@@ -12,20 +12,27 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 
 import java.io.IOException;
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class MainController {
+    //outer FXML structures, all on vbOuter
     @FXML
-    public AnchorPane anchorPane;
+    public VBox vbOuter;
+    @FXML
+    public HBox hbHeader;
+    @FXML
+    public HBox hbButtons;
+    @FXML
+    public ScrollPane scrollPane;
+    @FXML
+    public BorderPane bpSettings;
+
+
     @FXML
     private VBox vbResult;
     @FXML
@@ -43,8 +50,6 @@ public class MainController {
     //all variables for settings:
     private Map<Kapelle, ArrayList<Kapelle>> dependencies = new HashMap<>(); //Kapellen mit Doppelmusikern
 
-    @FXML
-    public BorderPane bpSettings;
     private ObservableList<Kapelle> data = FXCollections.observableArrayList();
     @FXML
     public TableView<Kapelle> tblSettings;
@@ -89,8 +94,13 @@ public class MainController {
             theras, unterduernbach, wullersdorf, zellerndorf, ziersdorf, kirchberg, angerberg_mariastein));
 
     public void initialize() {
+        /*
         vbResult.getChildren().clear();
         vbResult.getChildren().add(bpSettings);
+        */
+        clearVbOuter();
+        //add settings at the beginning
+        vbOuter.getChildren().add(bpSettings);
 
         //initialize table
 
@@ -173,9 +183,17 @@ public class MainController {
         tblSettings.setItems(data);
     }
 
+    private void clearVbOuter() {
+        vbOuter.getChildren().clear();
+        vbOuter.getChildren().add(hbHeader);
+        vbOuter.getChildren().add(hbButtons);
+    }
+
     public void openSettings(ActionEvent actionEvent) {
-        vbResult.getChildren().clear();
-        vbResult.getChildren().add(bpSettings);
+        //vbResult.getChildren().clear();
+        //vbResult.getChildren().add(bpSettings);
+        clearVbOuter();
+        vbOuter.getChildren().add(bpSettings);
     }
 
 
@@ -186,6 +204,8 @@ public class MainController {
         }
         //refresh so that all calculated values are now seen in the table
         tblSettings.refresh();
+
+        switchToOutput();
 
         StNrAlgorithm stNrAlgorithm = getInitializedStrNrAlgorithmInstance(participants);
 
@@ -206,6 +226,8 @@ public class MainController {
         }
         //refresh so that all calculated values are now seen in the table
         tblSettings.refresh();
+
+        switchToOutput();
 
         StNrAlgorithm stNrAlgorithm = getInitializedStrNrAlgorithmInstance(participants);
 
@@ -242,6 +264,12 @@ public class MainController {
                     " Zuweisungen sind fehlgeschlagen!");
         }
     }
+
+    private void switchToOutput() {
+        clearVbOuter();
+        vbOuter.getChildren().add(scrollPane);
+    }
+
 
     private boolean isDataValid(ArrayList<Kapelle> participants) {
         String res = Utils.pruefeStNr(participants);
