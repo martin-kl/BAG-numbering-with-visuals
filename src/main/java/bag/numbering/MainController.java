@@ -62,6 +62,8 @@ public class MainController {
     @FXML
     public TableColumn<Kapelle, Boolean> clmActive;
     @FXML
+    public TableColumn<Kapelle, String> clmDependencies;
+    @FXML
     public TableColumn<Kapelle, String> clmEdit;
 
     //Create all participants
@@ -125,6 +127,13 @@ public class MainController {
                 event -> event.getTableView().getItems().get(event.getTablePosition().getRow()).
                         setSpStNr(Integer.parseInt(event.getNewValue()))
         );
+
+        clmDependencies.setCellFactory(TextFieldTableCell.forTableColumn());
+        clmDependencies.setCellValueFactory(c -> {
+            if (dependencies.get(c.getValue()) == null)
+                return new SimpleStringProperty("0");
+            return new SimpleStringProperty(dependencies.get(c.getValue()).size() + "");
+        });
 
         clmActive.setCellValueFactory(c -> new SimpleBooleanProperty(c.getValue().isActive()));
 
