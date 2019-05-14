@@ -15,7 +15,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="700.0" minWidth="-Infinity" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="bag.numbering.MainController">
+<AnchorPane fx:id="anchorPane" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="bag.numbering.MainController">
   <children>
       <VBox AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -109,7 +109,7 @@
                               </Label>
                            </children>
                         </GridPane>
-                        <BorderPane fx:id="bpSettings" prefHeight="550.0">
+                        <BorderPane fx:id="bpSettings">
                            <center>
                               <TableView fx:id="tblSettings" editable="true" prefWidth="725.0" BorderPane.alignment="CENTER">
                                  <columns>
