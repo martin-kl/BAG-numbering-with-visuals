@@ -78,9 +78,9 @@ public class Utils {
         return "";
     }
 
-    public static ArrayList<Kapelle> deepCopyOfActiveOnes(ArrayList<Kapelle> allKapellen) {
+    public static ArrayList<Kapelle> deepCopyOfActiveOnes(List<Kapelle> kapellen) {
         ArrayList<Kapelle> resultList = new ArrayList<>();
-        for (Kapelle kap : allKapellen) {
+        for (Kapelle kap : kapellen) {
             if (kap.isActive())
                 resultList.add(new Kapelle(kap.getBez(), kap.getMNr(), kap.getFrStNr(), kap.getSpStNr(), kap.isActive()));
         }

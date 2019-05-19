@@ -1,5 +1,7 @@
 package bag.numbering;
 
+import java.util.Objects;
+
 public class Kapelle {
 
     private String bez;
@@ -7,6 +9,10 @@ public class Kapelle {
     private int frStNr;
     private int spStNr;
     private boolean active;
+
+    public Kapelle() {
+        this.mNr = -1;
+    }
 
     public Kapelle(String bez) {
         this.bez = bez;
@@ -80,12 +86,21 @@ public class Kapelle {
         this.active = active;
     }
 
-    public boolean equals(Object obj) {
-        if (obj instanceof Kapelle) {
-            Kapelle kap = (Kapelle) obj;
-            return this.mNr == kap.mNr;
-        }
-        return false;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Kapelle kapelle = (Kapelle) o;
+        return mNr == kapelle.mNr &&
+                frStNr == kapelle.frStNr &&
+                spStNr == kapelle.spStNr &&
+                active == kapelle.active &&
+                Objects.equals(bez, kapelle.bez);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(bez, mNr, frStNr, spStNr, active);
     }
 
     @Override

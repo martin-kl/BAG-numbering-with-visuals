@@ -68,23 +68,11 @@ public class MainController {
     @FXML
     public TableColumn<Kapelle, String> clmEdit;
 
-    private ArrayList<Kapelle> allKapellen;
-
     public void initialize() {
         clearVbOuter();
         //add settings at the beginning
         vbOuter.getChildren().add(bpSettings);
 
-        //load data from file
-        try {
-            allKapellen = Utils.readFromFile();
-        } catch (IOException e) {
-            showExceptionDialog(e,
-                    "Fehler",
-                    "Fehler beim Laden",
-                    "Fehler beim Laden der Daten aus der Datei " + Utils.FILE_PATH + ".\n" +
-                            "Siehe Meldung für mehr Details:");
-        }
 
         //and init the whole table
         initTable();
@@ -105,7 +93,7 @@ public class MainController {
 
 
     public void startAlgorithmNormally(ActionEvent actionEvent) {
-        ArrayList<Kapelle> participants = Utils.deepCopyOfActiveOnes(allKapellen);
+        ArrayList<Kapelle> participants = Utils.deepCopyOfActiveOnes(data);
         if (!isDataValid(participants)) {
             return;
         }
@@ -127,7 +115,7 @@ public class MainController {
     }
 
     public void startAlgorithmLoop(ActionEvent actionEvent) {
-        ArrayList<Kapelle> participants = Utils.deepCopyOfActiveOnes(allKapellen);
+        ArrayList<Kapelle> participants = Utils.deepCopyOfActiveOnes(data);
         if (!isDataValid(participants)) {
             return;
         }
@@ -257,7 +245,7 @@ public class MainController {
                         setSpStNr(Integer.parseInt(event.getNewValue()))
         );
 
-        clmDependencies.setCellFactory(TextFieldTableCell.forTableColumn());
+        //clmDependencies.setCellFactory(TextFieldTableCell.forTableColumn());
         clmDependencies.setCellValueFactory(c -> {
             if (dependencies.get(c.getValue()) == null)
                 return new SimpleStringProperty("0");
@@ -282,32 +270,8 @@ public class MainController {
                         } else {
                             btnEdit.setOnAction(event -> {
                                 Kapelle kap = getTableView().getItems().get(getIndex());
-                                FXMLLoader loader = new FXMLLoader(getClass().getResource("/edit.fxml"));
-                                try {
-                                    Parent parent = loader.load();
-                                    EditController editController = loader.getController();
-                                    editController.init(kap, dependencies.get(kap), data);
-                                    Stage stage = new Stage();
-                                    stage.setTitle("Kapelle bearbeiten");
-                                    stage.initOwner(tblSettings.getScene().getWindow());
-                                    stage.setScene(new Scene(parent));
-                                    stage.setOnCloseRequest(c -> editController.saveEdit(null));
-                                    //block until windows is closed
-                                    stage.showAndWait();
-
-                                    //get value back
-                                    Kapelle newKap = editController.getKapelle();
-                                    kap.setBez(newKap.getBez());
-                                    kap.setFrStNr(newKap.getFrStNr());
-                                    kap.setSpStNr(newKap.getSpStNr());
-                                    kap.setActive(newKap.isActive());
-                                    //and get dependencies
-                                    dependencies.put(kap, editController.getDependencies());
-                                    Utils.keepDependenciesUpToDate(dependencies, kap);
-                                    tblSettings.refresh();
-                                } catch (IOException e) {
-                                    e.printStackTrace();
-                                }
+                                showKapellenStage(kap, "Kapelle bearbeiten", dependencies.get(kap));
+                                tblSettings.refresh();
                             });
                             setGraphic(btnEdit);
                             setText(null);
@@ -316,8 +280,16 @@ public class MainController {
                 };
             }
         });
-
-        data.addAll(allKapellen);
+        //load data from file
+        try {
+            data.addAll(Utils.readFromFile());
+        } catch (IOException e) {
+            showExceptionDialog(e,
+                    "Fehler",
+                    "Fehler beim Laden",
+                    "Fehler beim Laden der Daten aus der Datei " + Utils.FILE_PATH + ".\n" +
+                            "Siehe Meldung für mehr Details:");
+        }
         tblSettings.setItems(data);
     }
 
@@ -366,5 +338,41 @@ public class MainController {
         alert.getDialogPane().setExpandableContent(expContent);
 
         alert.showAndWait();
+    }
+
+    public void addKapelle(ActionEvent actionEvent) {
+        Kapelle newKap = new Kapelle();
+        newKap.setActive(true);
+        showKapellenStage(newKap, "Kapelle erstellen", new ArrayList<>());
+        data.add(newKap);
+        tblSettings.refresh();
+    }
+
+    private void showKapellenStage(Kapelle kap, String titleText, ArrayList<Kapelle> dependenciesBefore) {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/edit.fxml"));
+        try {
+            Parent parent = loader.load();
+            EditController editController = loader.getController();
+            editController.init(kap, dependenciesBefore, data);
+            Stage stage = new Stage();
+            stage.setTitle(titleText);
+            stage.initOwner(tblSettings.getScene().getWindow());
+            stage.setScene(new Scene(parent));
+            stage.setOnCloseRequest(c -> editController.saveEdit(null));
+            //block until windows is closed
+            stage.showAndWait();
+
+            //get value back
+            Kapelle newKap = editController.getKapelle();
+            kap.setBez(newKap.getBez());
+            kap.setFrStNr(newKap.getFrStNr());
+            kap.setSpStNr(newKap.getSpStNr());
+            kap.setActive(newKap.isActive());
+            //and get dependencies
+            dependencies.put(kap, editController.getDependencies());
+            Utils.keepDependenciesUpToDate(dependencies, kap);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

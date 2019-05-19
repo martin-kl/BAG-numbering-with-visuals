@@ -19,9 +19,11 @@ public class EditController {
     @FXML
     public BorderPane settingsPane;
     @FXML
-    public TextField txEarliest;
-    @FXML
     public TextField txName;
+    @FXML
+    public TextField txMnr;
+    @FXML
+    public TextField txEarliest;
     @FXML
     public TextField txLatest;
     @FXML
@@ -46,17 +48,18 @@ public class EditController {
         //get dependencies
         readDependencies();
         if ((dependencies.size() > 0 && dependencies.contains(kap)) ||
-                txName.getText().length() < 3) {
+                txName.getText() == null || txName.getText().length() < 3) {
             dependencies.clear();
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Fehler");
             alert.setHeaderText("Daten nicht valide");
-            alert.setContentText("Daten sind nicht valide - Abhängigkeit zu sich selbst?!");
+            alert.setContentText("Daten sind nicht valide - Abhängigkeit zu sich selbst oder kein Name");
             alert.showAndWait();
             return;
         }
 
         kap.setBez(txName.getText());
+        kap.setmNr(Integer.parseInt(txMnr.getText()));
         kap.setFrStNr(Integer.parseInt(txEarliest.getText()));
         kap.setSpStNr(Integer.parseInt(txLatest.getText()));
         kap.setActive(cbActive.isSelected());
@@ -84,8 +87,10 @@ public class EditController {
         //copy kapellen so we can add something to it
         kapellen = FXCollections.observableArrayList(data);
         kapellen.add(0, null);
+        kapellen.remove(kap);
 
         txName.setText(kap.getBez());
+        txMnr.setText(kap.getMNr() + "");
         txEarliest.setText(kap.getFrStNr() + "");
         txLatest.setText(kap.getSpStNr() + "");
         cbActive.setSelected(kap.isActive());
