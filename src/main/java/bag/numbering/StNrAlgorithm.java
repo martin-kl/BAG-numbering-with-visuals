@@ -4,10 +4,12 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Map;
 import java.util.Random;
+import java.util.logging.Logger;
 
 public class StNrAlgorithm {
 
     public static final int MAX_TRIES = 10;
+    private final Logger logger = Logger.getLogger(this.getClass().getName());
 
     private ArrayList<Kapelle> kapellen; //Teilnehmende Kapellen
     private Map<Kapelle, ArrayList<Kapelle>> kapellenMitAbhaengigkeit; //Kapellen mit Doppelmusikern
@@ -56,34 +58,26 @@ public class StNrAlgorithm {
         this.z = 0;
     }
 
-    public boolean startAlgorithmOnce(boolean showStartingNumbers, boolean resetParameter) {
-        if (resetParameter) {
-            this.vergebeneStNr = new ArrayList<>();
-            this.startingNumbers = new Kapelle[kapellen.size() + 1];
+    public boolean startAlgorithmOnce() {
+        this.vergebeneStNr = new ArrayList<>();
+        this.startingNumbers = new Kapelle[kapellen.size() + 1];
 
-            this.zugeteilt = false;
-            this.z = 0;
-        }
+        this.zugeteilt = false;
+        this.z = 0;
 
         //start assigning starting numbers
         if (!teileStartnummernZu()) {
-            System.err.println("Mit der begonnenen Zuweisung konnte kein passendes Ergebnis für"
+            logger.warning("Mit der begonnenen Zuweisung konnte kein passendes Ergebnis für"
                     + " alle Kapellen gefunden werden, breche diesen Versuch ab...");
             return false;
-        }
-
-        if (showStartingNumbers) {
-            this.printStartingNumbers();
         }
         return true;
     }
 
     /**
      * This method calls the assignment method till it gets a positive assignment, max times=MAX_TRIES
-     *
-     * @param printStartingNumbers prints the starting numbers on System.out if the flag is set
      */
-    public boolean startAlgorithmLoop(boolean printStartingNumbers) {
+    public boolean startAlgorithmLoop() {
         boolean assignmentFound = false;
         int attempt_counter = 0;
         while (!assignmentFound && attempt_counter < MAX_TRIES) {
@@ -102,14 +96,11 @@ public class StNrAlgorithm {
 
         if (assignmentFound) {
             //found solution, print it if necessary
-            System.out.println("Ergebnis in Versuch Nummer " + (attempt_counter + 1) + " gefunden.");
-            if (printStartingNumbers) {
-                this.printStartingNumbers();
-            }
+            logger.info("Ergebnis in Versuch Nummer " + (attempt_counter + 1) + " gefunden.");
             return true;
         } else {
             //no solution found, print error message
-            System.err.println("\n\n\t\t" + MAX_TRIES + " Versuche um Startnummer zu belegen wurden durchgeführt" +
+            logger.severe("\n\n\t\t" + MAX_TRIES + " Versuche um Startnummer zu belegen wurden durchgeführt" +
                     "aber keine Belegung hat funktioniert ==> Programm beendet sich.\n\n");
         }
         return false;
@@ -127,7 +118,7 @@ public class StNrAlgorithm {
                 }
             }
             if (!added) {
-                if (k.getStNrDif() < kapellen.size()) {
+                if (k.getStNrDif() < kapellen.size() - 1) {
                     kritischeKapellen2.add(k);
                 } else {
                     kritischeKapellen3.add(k);
@@ -153,13 +144,13 @@ public class StNrAlgorithm {
 
     private boolean teileStartnummernZu() {
         for (Kapelle k : kritischeKapellen1) {
-            if (kapellenMitAbhaengigkeit.containsKey(k)) {
-                if (!ermittleStartnummerI(k)) {
-                    //System.out.println("Exit detected - cancel this try");
+            if (!kapellenMitAbhaengigkeit.containsKey(k)) {
+                if (!ermittleStartnummerII(k)) {
                     return false;
                 }
             } else {
-                if (!ermittleStartnummerII(k)) {
+                if (!ermittleStartnummerI(k)) {
+                    //System.out.println("Exit detected - cancel this try");
                     return false;
                 }
             }
@@ -188,7 +179,7 @@ public class StNrAlgorithm {
             attempt_counter++;
             if (attempt_counter > 200) {
                 //stop it
-                System.err.println("ermittleStartnummerI\tEs wurden bereits 200 Versuche für eine Startnummer für"
+                logger.warning("ermittleStartnummerI\tEs wurden bereits 200 Versuche für eine Startnummer für"
                         + " " + k.getBez() + " getätigt, Abbruch folgt.");
                 return false;
             }
@@ -203,10 +194,10 @@ public class StNrAlgorithm {
                     return true;
                 }
             } else {
-
                 //check if there is another band with a dependence in range 2
                 if (!criticalBandsNotPossible(2, k)) {
-                    System.out.println("Zuweisung für " + k.getBez() + " gefunden, jedoch nur mit 2 Abstand zu einer anderen Kapelle mit Abhängigkeit!");
+                    logger.info("Zuweisung für " + k.getBez() + " gefunden, jedoch nur mit 2 Abstand zu einer " +
+                            "anderen Kapelle mit Abhängigkeit!");
                     zugeteilt = true;
                     startingNumbers[z] = k;
                     vergebeneStNr.add(z);
@@ -252,7 +243,7 @@ public class StNrAlgorithm {
         if (!zugeteilt) {
             //algorithm was not able to find possible starting numbers
             //most likely 2 orchestras have just one possible starting number (the same)
-            System.err.println("ermittleStartnummer2\tEs wurden bereits 400 Versuche für eine Startnummer für"
+            logger.warning("ermittleStartnummer2\tEs wurden bereits 400 Versuche für eine Startnummer für"
                     + " " + k.getBez() + " getätigt, Abbruch folgt.");
             return false;
         }
@@ -271,14 +262,6 @@ public class StNrAlgorithm {
             }
         }
         return true;
-    }
-
-    private void printStartingNumbers() {
-        System.out.println("Startreihenfolge für die Marschmusikbewertung 2018");
-        System.out.println();
-        for (int i = 1; i < startingNumbers.length; i++) {
-            System.out.println(i + " " + startingNumbers[i].getBez());
-        }
     }
 
     public Kapelle[] getResult() {

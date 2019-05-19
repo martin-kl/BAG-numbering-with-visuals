@@ -105,7 +105,7 @@ public class MainController {
         StNrAlgorithm stNrAlgorithm = getInitializedStrNrAlgorithmInstance(participants);
 
         //stNrAlgorithm.startAlgorithmOnce(true, false);
-        boolean result = stNrAlgorithm.startAlgorithmLoop(false);
+        boolean result = stNrAlgorithm.startAlgorithmLoop();
 
         addResultToGraphicOutput(true, stNrAlgorithm.getResult(), result);
         if (!result) {
@@ -130,19 +130,19 @@ public class MainController {
         boolean lastResult;
         for (int i = 0; i < LOOP_TIMES - 1; i++) {
             //System.out.println("\t\tDurchlauf Nummer = " + (i + 1));
-            if (stNrAlgorithm.startAlgorithmOnce(false, true)) {
+            if (stNrAlgorithm.startAlgorithmOnce()) {
                 posCounter++;
             }
         }
         //System.out.println("\n\t\tDurchlauf Nummer = " + LOOP_TIMES);
-        if ((lastResult = stNrAlgorithm.startAlgorithmOnce(true, true))) {
+        if ((lastResult = stNrAlgorithm.startAlgorithmOnce())) {
             posCounter++;
         }
 
         lbLoopTimes.setText("" + LOOP_TIMES);
         lbSuccessful.setText("" + posCounter);
         lbResult.setText((LOOP_TIMES - posCounter) + " Zuweisungen sind nicht gelungen!");
-        //spResults.setContent(gridPaneStatistical);
+
         vbResult.getChildren().clear();
         vbResult.getChildren().add(gridPaneStatistical);
 
@@ -282,27 +282,44 @@ public class MainController {
         });
         //load data from file
         try {
-            data.addAll(Utils.readFromFile());
+            data.addAll(Utils.loadKapellenFromFile());
         } catch (IOException e) {
             showExceptionDialog(e,
                     "Fehler",
                     "Fehler beim Laden",
-                    "Fehler beim Laden der Daten aus der Datei " + Utils.FILE_PATH + ".\n" +
+                    "Fehler beim Laden der Kapellen-Daten aus der Datei " + Utils.FILE_PATH_KAPELLEN + ".\n" +
                             "Siehe Meldung für mehr Details:");
+        }
+        try {
+            dependencies = Utils.loadDependenciesFromFile(data);
+        } catch (IOException e) {
+            showExceptionDialog(e,
+                    "Fehler",
+                    "Fehler beim Laden",
+                    "Fehler beim Laden der Abhängigkeiten aus der Datei " + Utils.FILE_PATH_DEPENDENCIES + ".\n" +
+                            "Siehe Meldung für mehr Details:");
+        }
+        if (data.size() < 1) {
+            data.addAll(Utils.getAllParticipantsOLD());
+            showAlert(Alert.AlertType.INFORMATION, "Information", "Alte Daten geladen!",
+                    "Da die Dateien nicht aus dem File geladen werden konnten, wurden fix codierte Daten " +
+                            "geladen - diese können geändert und gespeichert werden.");
         }
         tblSettings.setItems(data);
     }
 
     public void saveData(ActionEvent actionEvent) {
         try {
-            Utils.writeToFile(data);
+            Utils.writeKapellenToFile(data);
+            Utils.writeDependenciesToFile(dependencies);
             showAlert(Alert.AlertType.INFORMATION, "Erfolgreich", "Erfolgreich gespeichert",
                     "Daten wurden erfolgreich gespeichert.");
         } catch (IOException e) {
             showExceptionDialog(e,
                     "IO - Fehler",
                     "Fehler beim Speichern der Daten",
-                    "Konnte Daten nicht unter " + Utils.FILE_PATH + " speichern.");
+                    "Konnte Daten nicht unter " + Utils.FILE_PATH_KAPELLEN + " und " +
+                            Utils.FILE_PATH_DEPENDENCIES + " speichern.");
         }
     }
 

@@ -2,15 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bag_numbering.iml" beforeDir="false" afterPath="$PROJECT_DIR$/bag_numbering.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data.json" beforeDir="false" afterPath="$PROJECT_DIR$/data.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/bag/numbering/EditController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bag/numbering/EditController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data.json" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/bag/numbering/Kapelle.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bag/numbering/Kapelle.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/bag/numbering/MainController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bag/numbering/MainController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/bag/numbering/StNrAlgorithm.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bag/numbering/StNrAlgorithm.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/bag/numbering/Utils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bag/numbering/Utils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/edit.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/edit.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/main.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/main.fxml" afterDir="false" />
     </list>
     <ignored path="JavaFxApplication.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -66,7 +62,7 @@
     <favorites_list name="JavaFxApplication" />
   </component>
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.4820435">
+    <splitter split-orientation="horizontal" split-proportion="0.47435898">
       <split-first>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
           <file pinned="false" current-in-tab="false">
@@ -78,20 +74,23 @@
               </provider>
             </entry>
           </file>
-          <file pinned="false" current-in-tab="false">
+          <file pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/src/main/java/bag/numbering/Utils.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="1700">
-                  <caret line="110" column="4" selection-start-line="110" selection-start-column="4" selection-end-line="110" selection-end-column="4" />
+                <state relative-caret-position="111">
+                  <caret line="31" selection-start-line="31" selection-end-line="31" />
+                  <folding>
+                    <element signature="imports" expanded="true" />
+                  </folding>
                 </state>
               </provider>
             </entry>
           </file>
-          <file pinned="false" current-in-tab="true">
+          <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/src/main/java/bag/numbering/MainController.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="643">
-                  <caret line="282" selection-start-line="282" selection-end-line="282" />
+                <state relative-caret-position="2690">
+                  <caret line="190" lean-forward="true" selection-start-line="190" selection-end-line="190" />
                 </state>
               </provider>
             </entry>
@@ -109,11 +108,14 @@
       </split-first>
       <split-second>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-          <file pinned="false" current-in-tab="false">
+          <file pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/src/main/java/bag/numbering/StNrAlgorithm.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="119">
-                  <caret line="10" selection-start-line="10" selection-end-line="10" />
+                <state relative-caret-position="-76">
+                  <caret line="12" column="18" selection-start-line="12" selection-start-column="18" selection-end-line="12" selection-end-column="18" />
+                  <folding>
+                    <element signature="e#9454#9455#0" expanded="true" />
+                  </folding>
                 </state>
               </provider>
             </entry>
@@ -121,17 +123,45 @@
           <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/src/main/java/bag/numbering/Kapelle.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="1071">
-                  <caret line="87" selection-start-line="87" selection-end-line="87" />
+                <state relative-caret-position="255">
+                  <caret line="15" column="4" selection-start-line="15" selection-start-column="4" selection-end-line="15" selection-end-column="4" />
                   <folding>
-                    <element signature="e#2135#2136#0" expanded="true" />
-                    <element signature="e#2204#2205#0" expanded="true" />
+                    <element signature="imports" expanded="true" />
+                    <element signature="e#263#264#0" expanded="true" />
+                    <element signature="e#1052#1053#0" expanded="true" />
+                    <element signature="e#1080#1081#0" expanded="true" />
+                    <element signature="e#1163#1164#0" expanded="true" />
+                    <element signature="e#1188#1189#0" expanded="true" />
+                    <element signature="e#1102#1103#0" expanded="true" />
+                    <element signature="e#1132#1133#0" expanded="true" />
+                    <element signature="e#1162#1163#0" expanded="true" />
+                    <element signature="e#1193#1194#0" expanded="true" />
+                    <element signature="e#1220#1221#0" expanded="true" />
+                    <element signature="e#1251#1252#0" expanded="true" />
+                    <element signature="e#1281#1282#0" expanded="true" />
+                    <element signature="e#1315#1316#0" expanded="true" />
+                    <element signature="e#1345#1346#0" expanded="true" />
+                    <element signature="e#1379#1380#0" expanded="true" />
+                    <element signature="e#1682#1683#0" expanded="true" />
+                    <element signature="e#1731#1732#0" expanded="true" />
+                    <element signature="e#1493#1494#0" expanded="true" />
+                    <element signature="e#1523#1524#0" expanded="true" />
+                    <element signature="e#1564#1565#0" expanded="true" />
+                    <element signature="e#1600#1601#0" expanded="true" />
+                    <element signature="e#1641#1642#0" expanded="true" />
+                    <element signature="e#1677#1678#0" expanded="true" />
+                    <element signature="e#1710#1711#0" expanded="true" />
+                    <element signature="e#1739#1740#0" expanded="true" />
+                    <element signature="e#1784#1785#0" expanded="true" />
+                    <element signature="e#1820#1821#0" expanded="true" />
+                    <element signature="e#2170#2171#0" expanded="true" />
+                    <element signature="e#2209#2210#0" expanded="true" />
                   </folding>
                 </state>
               </provider>
             </entry>
           </file>
-          <file pinned="false" current-in-tab="true">
+          <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/src/main/resources/main.fxml">
               <provider editor-type-id="JavaFX-Scene-Builder" />
               <provider selected="true" editor-type-id="text-editor">
@@ -167,6 +197,12 @@
   <component name="FindInProjectRecents">
     <findStrings>
       <find>gson</find>
+      <find>startreihen</find>
+      <find>es wurden</find>
+      <find>breche diesen</find>
+      <find>klassi</find>
+      <find>logger</find>
+      <find>startalgorithmloop</find>
     </findStrings>
   </component>
   <component name="FindManager">
@@ -202,19 +238,22 @@
         <option value="$PROJECT_DIR$/src/main/java/MainController.java" />
         <option value="$PROJECT_DIR$/src/main/java/bag/numbering/SettingsController.java" />
         <option value="$PROJECT_DIR$/src/main/resources/edit.fxml" />
-        <option value="$PROJECT_DIR$/src/main/java/bag/numbering/StNrAlgorithm.java" />
-        <option value="$PROJECT_DIR$/src/main/java/bag/numbering/MainController.java" />
         <option value="$PROJECT_DIR$/src/main/java/bag/numbering/EditController.java" />
-        <option value="$PROJECT_DIR$/src/main/java/bag/numbering/Utils.java" />
+        <option value="$PROJECT_DIR$/dependencies.json" />
+        <option value="$PROJECT_DIR$/kapellen.json" />
         <option value="$PROJECT_DIR$/src/main/java/bag/numbering/Kapelle.java" />
+        <option value="$PROJECT_DIR$/src/main/java/bag/numbering/MainController.java" />
+        <option value="$PROJECT_DIR$/src/main/java/bag/numbering/StNrAlgorithm.java" />
+        <option value="$PROJECT_DIR$/src/main/java/bag/numbering/Utils.java" />
       </list>
     </option>
   </component>
   <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true" />
-  <component name="ProjectFrameBounds">
-    <option name="x" value="324" />
-    <option name="width" value="2243" />
-    <option name="height" value="1407" />
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="-478" />
+    <option name="y" value="-8" />
+    <option name="width" value="1934" />
+    <option name="height" value="1054" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectReloadState">
@@ -225,7 +264,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -256,6 +294,7 @@
         </subPane>
       </pane>
       <pane id="PackagesPane" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -273,7 +312,7 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1558210957048" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1558289207379" />
     <property name="dynamic.classpath" value="false" />
     <property name="extract.method.default.visibility" value="private" />
     <property name="last_opened_file_path" value="C:/Program Files/Java/javafx-sdk-12.0.1/lib" />
@@ -475,6 +514,7 @@
       <workItem from="1558206224914" duration="4749000" />
       <workItem from="1558216762608" duration="1198000" />
       <workItem from="1558267258110" duration="13000" />
+      <workItem from="1558277492395" duration="9333000" />
     </task>
     <task id="LOCAL-00001" summary="fixed sout and visual output">
       <created>1500991704358</created>
@@ -487,12 +527,13 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="58131000" />
+    <option name="totallyTimeSpent" value="67464000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="2576" height="1416" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.6703755" visible="true" weight="0.10015898" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.6703755" visible="true" weight="0.10095389" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="Image Layers" order="3" />
@@ -501,9 +542,9 @@
       <window_info id="Capture Tool" order="6" />
       <window_info id="Nl-Palette" order="7" />
       <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" weight="0.32941177" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.4130943" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.4489796" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.3289166" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.30631334" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.5658613" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
@@ -511,7 +552,7 @@
       <window_info anchor="bottom" id="Profiler" order="8" />
       <window_info anchor="bottom" id="Changes" order="9" />
       <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
-      <window_info anchor="bottom" id="Messages" order="11" weight="0.21428572" />
+      <window_info anchor="bottom" id="Messages" order="11" weight="0.21356197" />
       <window_info anchor="bottom" id="Problems" order="12" />
       <window_info anchor="bottom" id="Version Control" order="13" />
       <window_info anchor="bottom" id="Terminal" order="14" />
@@ -542,6 +583,17 @@
     <option name="INCLUDE_TEXT_INTO_SHELF" value="false" />
     <MESSAGE value="fixed sout and visual output" />
     <option name="LAST_COMMIT_MESSAGE" value="fixed sout and visual output" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <default-breakpoints>
+        <breakpoint type="python-exception">
+          <properties notifyOnTerminate="true" exception="BaseException">
+            <option name="notifyOnTerminate" value="true" />
+          </properties>
+        </breakpoint>
+      </default-breakpoints>
+    </breakpoint-manager>
   </component>
   <component name="antWorkspaceConfiguration">
     <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />
@@ -675,42 +727,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/bag/numbering/Utils.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1700">
-          <caret line="110" column="4" selection-start-line="110" selection-start-column="4" selection-end-line="110" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/bag/numbering/EditController.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1598">
           <caret line="107" selection-start-line="107" selection-end-line="107" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/bag/numbering/MainController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="643">
-          <caret line="282" selection-start-line="282" selection-end-line="282" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/bag/numbering/StNrAlgorithm.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="10" selection-start-line="10" selection-end-line="10" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/bag/numbering/Kapelle.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1071">
-          <caret line="87" selection-start-line="87" selection-end-line="87" />
-          <folding>
-            <element signature="e#2135#2136#0" expanded="true" />
-            <element signature="e#2204#2205#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -727,6 +747,89 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="601">
           <caret line="119" column="32" selection-start-line="119" selection-start-column="32" selection-end-line="119" selection-end-column="32" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/kapellen.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="2606" selection-start-column="2606" selection-end-column="2606" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dependencies.json">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_191/src.zip!/java/util/logging/Logger.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="594">
+          <caret line="490" column="25" selection-start-line="490" selection-start-column="25" selection-end-line="490" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/bag/numbering/MainController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2690">
+          <caret line="190" lean-forward="true" selection-start-line="190" selection-end-line="190" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/bag/numbering/Utils.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="111">
+          <caret line="31" selection-start-line="31" selection-end-line="31" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/bag/numbering/Kapelle.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="15" column="4" selection-start-line="15" selection-start-column="4" selection-end-line="15" selection-end-column="4" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#263#264#0" expanded="true" />
+            <element signature="e#1052#1053#0" expanded="true" />
+            <element signature="e#1080#1081#0" expanded="true" />
+            <element signature="e#1163#1164#0" expanded="true" />
+            <element signature="e#1188#1189#0" expanded="true" />
+            <element signature="e#1102#1103#0" expanded="true" />
+            <element signature="e#1132#1133#0" expanded="true" />
+            <element signature="e#1162#1163#0" expanded="true" />
+            <element signature="e#1193#1194#0" expanded="true" />
+            <element signature="e#1220#1221#0" expanded="true" />
+            <element signature="e#1251#1252#0" expanded="true" />
+            <element signature="e#1281#1282#0" expanded="true" />
+            <element signature="e#1315#1316#0" expanded="true" />
+            <element signature="e#1345#1346#0" expanded="true" />
+            <element signature="e#1379#1380#0" expanded="true" />
+            <element signature="e#1682#1683#0" expanded="true" />
+            <element signature="e#1731#1732#0" expanded="true" />
+            <element signature="e#1493#1494#0" expanded="true" />
+            <element signature="e#1523#1524#0" expanded="true" />
+            <element signature="e#1564#1565#0" expanded="true" />
+            <element signature="e#1600#1601#0" expanded="true" />
+            <element signature="e#1641#1642#0" expanded="true" />
+            <element signature="e#1677#1678#0" expanded="true" />
+            <element signature="e#1710#1711#0" expanded="true" />
+            <element signature="e#1739#1740#0" expanded="true" />
+            <element signature="e#1784#1785#0" expanded="true" />
+            <element signature="e#1820#1821#0" expanded="true" />
+            <element signature="e#2170#2171#0" expanded="true" />
+            <element signature="e#2209#2210#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/bag/numbering/StNrAlgorithm.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-76">
+          <caret line="12" column="18" selection-start-line="12" selection-start-column="18" selection-end-line="12" selection-end-column="18" />
+          <folding>
+            <element signature="e#9454#9455#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

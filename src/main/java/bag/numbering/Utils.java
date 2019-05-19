@@ -7,15 +7,18 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.lang.reflect.Type;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 public class Utils {
+    private final static Logger logger = Logger.getLogger(Utils.class.getName());
 
-    public static final String FILE_PATH = "./data.json";
+    public static final String FILE_PATH_KAPELLEN = "./kapellen.json";
+    public static final String FILE_PATH_DEPENDENCIES = "./dependencies.json";
     private static final Type KAPELLEN_TYPE = new TypeToken<List<Kapelle>>() {
+    }.getType();
+    private static final Type DEPENDENCIES_TYPE = new TypeToken<Map<String, List<String>>>() {
     }.getType();
 
     public static String pruefeStNr(List<Kapelle> list) {
@@ -26,19 +29,19 @@ public class Utils {
         for (Kapelle k : list) {
             if (k.getFrStNr() <= 0)
                 k.setFrStNr(1);
-            if (k.getSpStNr() == 0)
+            if (k.getSpStNr() <= 0)
                 k.setSpStNr((int) participants);
             if (k.getSpStNr() >= participants)
                 k.setSpStNr((int) participants);
 
             if (k.getStNrDif() < 0) {
-                System.err.println(k.getBez() + " hat ungültigen Startnummernbereich (frühest"
+                logger.warning (k.getBez() + " hat ungültigen Startnummernbereich (frühest"
                         + " möglich = " + k.getFrStNr() + " spätest möglich = " + k.getSpStNr() + ").");
                 invalid = true;
             }
         }
         if (invalid) {
-            System.err.println("\nInvalid starting range(s) - exiting program...");
+            logger.severe("\nInvalid starting range(s) - exiting program...");
             //System.exit(1);
             return "Mindestens eine Kapelle hat einen ungültigen Startnummernbereich";
         }
@@ -56,22 +59,13 @@ public class Utils {
         for (Kapelle k : map.keySet()) {
             for (Kapelle j : map.get(k)) {
                 if (k.equals(j)) {
-                    System.err.println(k.getBez() + " hat Abhängigkeit zu sich selbst.");
+                    logger.warning(k.getBez() + " hat Abhängigkeit zu sich selbst.");
                     invalid = true;
                 }
-                /*
-                //TODO this is no longer needed since we use keepDependenciesUpToDate already beforehand
-                //TODO but check this afterwards
-                //check for dependency in both directions:
-                map.computeIfAbsent(j, k1 -> new ArrayList<>());
-                if (!map.get(j).contains(k)) {
-                    map.get(j).add(k);
-                }
-                */
             }
         }
         if (invalid) {
-            System.err.println("\nInvalid dependence(s) detected - exiting program...");
+            logger.severe("\nInvalid dependence(s) detected - exiting program...");
             return "Mindestens eine Kapelle hat eine Abhängigkeit zu sich selbst";
             //System.exit(1); //exit the program if there is an invalid dependence
         }
@@ -82,7 +76,7 @@ public class Utils {
         ArrayList<Kapelle> resultList = new ArrayList<>();
         for (Kapelle kap : kapellen) {
             if (kap.isActive())
-                resultList.add(new Kapelle(kap.getBez(), kap.getMNr(), kap.getFrStNr(), kap.getSpStNr(), kap.isActive()));
+                resultList.add(new Kapelle(kap));
         }
         return resultList;
     }
@@ -110,21 +104,64 @@ public class Utils {
         }
     }
 
-    public static void writeToFile(List<Kapelle> data) throws IOException {
+    public static void writeKapellenToFile(List<Kapelle> data) throws IOException {
         Gson gson = new Gson();
-        FileWriter writer = new FileWriter(FILE_PATH);
+        FileWriter writer = new FileWriter(FILE_PATH_KAPELLEN);
         gson.toJson(data, writer);
         writer.flush();
         writer.close();
     }
 
-    public static ArrayList<Kapelle> readFromFile() throws IOException {
+    public static void writeDependenciesToFile(Map<Kapelle, ArrayList<Kapelle>> data) throws IOException {
+        //convert the data to a map with Kapelle and int's
+        Map<String, List<String>> dependencies = new HashMap<>();
+        for (Map.Entry<Kapelle, ArrayList<Kapelle>> entry : data.entrySet()) {
+            dependencies.put(entry.getKey().getId(),
+                    entry.getValue().stream().map(Kapelle::getId).collect(Collectors.toList()));
+        }
         Gson gson = new Gson();
-        FileReader reader = new FileReader(FILE_PATH);
+        FileWriter writer = new FileWriter(FILE_PATH_DEPENDENCIES);
+        gson.toJson(dependencies, writer);
+        writer.flush();
+        writer.close();
+    }
+
+    public static ArrayList<Kapelle> loadKapellenFromFile() throws IOException {
+        Gson gson = new Gson();
+        FileReader reader = new FileReader(FILE_PATH_KAPELLEN);
         return gson.fromJson(reader, KAPELLEN_TYPE);
     }
 
-    public List<Kapelle> getAllParticipantsOLD() {
+    public static Map<Kapelle, ArrayList<Kapelle>> loadDependenciesFromFile(List<Kapelle> data) throws IOException {
+        Gson gson = new Gson();
+        FileReader reader = new FileReader(FILE_PATH_DEPENDENCIES);
+        Map<String, List<String>> fileData = gson.fromJson(reader, DEPENDENCIES_TYPE);
+
+        //convert it to the return type
+        Map<Kapelle, ArrayList<Kapelle>> dependencies = new HashMap<>();
+        for (Map.Entry<String, List<String>> entry : fileData.entrySet()) {
+            //get kapelle from data
+            ArrayList<Kapelle> dep = new ArrayList<>();
+            for (String id : entry.getValue()) {
+                for (Kapelle kap : data) {
+                    if (kap.getId().equals(id)) {
+                        dep.add(kap);
+                        break;
+                    }
+                }
+            }
+            //now find kapelle to key - id:
+            for (Kapelle kap : data) {
+                if (kap.getId().equals(entry.getKey())) {
+                    dependencies.put(kap, dep);
+                    break;
+                }
+            }
+        }
+        return dependencies;
+    }
+
+    public static List<Kapelle> getAllParticipantsOLD() {
         //Create all participants
         Kapelle goellersdorf = new Kapelle("Blasmusikkapelle Göllersdorf", 311, 1, 5); //Festzelt(2)
         Kapelle guntersdorf = new Kapelle("Trachtenkapelle Guntersdorf", 101);

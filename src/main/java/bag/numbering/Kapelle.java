@@ -1,9 +1,10 @@
 package bag.numbering;
 
 import java.util.Objects;
+import java.util.UUID;
 
 public class Kapelle {
-
+    private String id;
     private String bez;
     private int mNr;
     private int frStNr;
@@ -11,22 +12,18 @@ public class Kapelle {
     private boolean active;
 
     public Kapelle() {
-        this.mNr = -1;
-    }
-
-    public Kapelle(String bez) {
-        this.bez = bez;
-        this.mNr = -1;
-        this.active = true;
+        this.id = UUID.randomUUID().toString();
     }
 
     public Kapelle(String bez, int mNr) {
+        this.id = UUID.randomUUID().toString();
         this.bez = bez;
         this.mNr = mNr;
         this.active = true;
     }
 
-    Kapelle(String bez, int mNr, int frStNr, int spStNr) {
+    public Kapelle(String bez, int mNr, int frStNr, int spStNr) {
+        this.id = UUID.randomUUID().toString();
         this.bez = bez;
         this.mNr = mNr;
         this.frStNr = frStNr;
@@ -34,12 +31,23 @@ public class Kapelle {
         this.active = true;
     }
 
-    public Kapelle(String bez, int mNr, int frStNr, int spStNr, boolean active) {
-        this.bez = bez;
-        this.mNr = mNr;
-        this.frStNr = frStNr;
-        this.spStNr = spStNr;
-        this.active = active;
+    public Kapelle(Kapelle capToCopy) {
+        //omitted since we copy the id here
+        //this();
+        this.bez = capToCopy.getBez();
+        this.mNr = capToCopy.getMNr();
+        this.frStNr = capToCopy.getFrStNr();
+        this.spStNr = capToCopy.getSpStNr();
+        this.active = capToCopy.isActive();
+        this.setId(capToCopy.getId());
+    }
+
+    private void setId(String id) {
+        this.id = id;
+    }
+
+    public String getId() {
+        return id;
     }
 
     public void setBez(String bez) {
@@ -91,16 +99,12 @@ public class Kapelle {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Kapelle kapelle = (Kapelle) o;
-        return mNr == kapelle.mNr &&
-                frStNr == kapelle.frStNr &&
-                spStNr == kapelle.spStNr &&
-                active == kapelle.active &&
-                Objects.equals(bez, kapelle.bez);
+        return id.equals(kapelle.id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(bez, mNr, frStNr, spStNr, active);
+        return Objects.hash(id);
     }
 
     @Override
