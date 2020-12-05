@@ -254,7 +254,7 @@ public class MainController {
 
         clmActive.setCellValueFactory(c -> new SimpleBooleanProperty(c.getValue().isActive()));
 
-        clmEdit.setCellValueFactory(new PropertyValueFactory<>("DUMMY"));
+        //clmEdit.setCellValueFactory(new PropertyValueFactory<>("edit_column"));
         clmEdit.setCellFactory(new Callback<TableColumn<Kapelle, String>, TableCell<Kapelle, String>>() {
             @Override
             public TableCell<Kapelle, String> call(TableColumn<Kapelle, String> param) {
@@ -312,8 +312,8 @@ public class MainController {
         try {
             Utils.writeKapellenToFile(data);
             Utils.writeDependenciesToFile(dependencies);
-            showAlert(Alert.AlertType.INFORMATION, "Erfolgreich", "Erfolgreich gespeichert",
-                    "Daten wurden erfolgreich gespeichert.");
+            showAlert(Alert.AlertType.INFORMATION, "Gespeichert", "Daten erfolgreich gespeichert",
+                    "");
         } catch (IOException e) {
             showExceptionDialog(e,
                     "IO - Fehler",

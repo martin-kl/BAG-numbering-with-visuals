@@ -117,7 +117,7 @@
                   </VBox>
                </content>
         </ScrollPane>
-            <BorderPane fx:id="bpSettings">
+            <BorderPane fx:id="bpSettings" VBox.vgrow="ALWAYS">
                <center>
                   <TableView fx:id="tblSettings" editable="true" prefHeight="600.0" BorderPane.alignment="CENTER">
                      <columns>
