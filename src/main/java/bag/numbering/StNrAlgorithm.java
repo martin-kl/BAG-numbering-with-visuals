@@ -11,12 +11,12 @@ public class StNrAlgorithm {
     public static final int MAX_TRIES = 10;
     private final Logger logger = Logger.getLogger(this.getClass().getName());
 
-    private ArrayList<Kapelle> kapellen; //Teilnehmende Kapellen
-    private Map<Kapelle, ArrayList<Kapelle>> kapellenMitAbhaengigkeit; //Kapellen mit Doppelmusikern
+    private final ArrayList<Kapelle> kapellen; //Teilnehmende Kapellen
+    private final Map<Kapelle, ArrayList<Kapelle>> kapellenMitAbhaengigkeit; //Kapellen mit Doppelmusikern
 
-    private ArrayList<Kapelle> kritischeKapellen1; //Kapellen mit Doppelmusikern oder großer Startnummern-Einschränkungen
-    private ArrayList<Kapelle> kritischeKapellen2; //Kapellen mit mittlerer Startnummern-Einschränkungen
-    private ArrayList<Kapelle> kritischeKapellen3; //Kapellen ohne Startnummern-Einschränkungen
+    private final ArrayList<Kapelle> kritischeKapellen1; //Kapellen mit Doppelmusikern oder großer Startnummern-Einschränkungen
+    private final ArrayList<Kapelle> kritischeKapellen2; //Kapellen mit mittlerer Startnummern-Einschränkungen
+    private final ArrayList<Kapelle> kritischeKapellen3; //Kapellen ohne Startnummern-Einschränkungen
 
     private Kapelle[] startingNumbers; //Startnummern
     private ArrayList<Integer> vergebeneStNr; //bereits vergebene Startnummern

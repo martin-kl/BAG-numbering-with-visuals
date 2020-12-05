@@ -63,4 +63,5 @@ $RECYCLE.BIN/
 *.lnk
 
 .idea/
+target/
 out/
